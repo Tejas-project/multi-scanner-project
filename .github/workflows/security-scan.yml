@@ -1,4 +1,4 @@
-name: Security Scan CI
+name: Multi-Scanner Security Analysis
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-scan:
+  security-analysis:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,12 +20,40 @@ jobs:
           push: false
           tags: my-app:latest
 
-      - name: Run Trivy vulnerability scanner
+      # ----- Scanner Steps -----
+      - name: Run Trivy Vulnerability Scanner
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: 'my-app:latest'
-          format: 'table'
+          format: 'json'
+          output: 'trivy-results.json'
           exit-code: '0'
           ignore-unfixed: true
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+          severity: 'CRITICAL,HIGH,MEDIUM,LOW'
+
+      - name: Run Grype Vulnerability Scanner
+        uses: anchore/grype-action@v3
+        with:
+          image: 'my-app:latest'
+          output-format: 'json'
+          output-file: 'grype-results.json'
+          fail-on-severity: 'none'
+
+      - name: Run Hadolint Dockerfile Linter
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+          format: json
+          output-file: 'hadolint-results.json
+          no-fail: true
+
+      # ----- Archive Results -----
+      - name: Upload scanner reports as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: scanner-reports
+          path: |
+            trivy-results.json
+            grype-results.json
+            hadolint-results.json
