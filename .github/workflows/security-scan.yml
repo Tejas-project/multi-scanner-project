@@ -32,13 +32,13 @@ jobs:
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH,MEDIUM,LOW'
 
-      - name: Run Grype Vulnerability Scanner
-        uses: anchore/grype-action@584451001a1895a623a35a26c4f0b2f11f4a43da # Using full commit hash
+      - name: Run Anchore Vulnerability Scanner (Grype)
+        uses: anchore/scan-action@v6
         with:
           image: 'my-app:latest'
           output-format: 'json'
           output-file: 'grype-results.json'
-          fail-on-severity: 'none'
+          fail-build: false
 
       - name: Run Hadolint Dockerfile Linter
         uses: hadolint/hadolint-action@v3.1.0
