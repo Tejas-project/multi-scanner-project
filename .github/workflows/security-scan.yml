@@ -32,9 +32,9 @@ jobs:
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH,MEDIUM,LOW'
 
-      # ----- CORRECTED GRYPE STEP -----
+      # ----- CORRECTED GRYPE STEP (USING COMMIT HASH) -----
       - name: Run Grype Vulnerability Scanner
-        uses: anchore/grype-action@v3 # Corrected line (ensure no typos)
+        uses: anchore/grype-action@584451001a1895a623a35a26c4f0b2f11f4a43da # Using full commit hash
         with:
           image: 'my-app:latest'
           output-format: 'json'
