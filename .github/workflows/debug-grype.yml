@@ -1,13 +1,12 @@
-name: Debug Grype Action
+name: Grype Action Test
 
 on:
- workflow_dispatch:
+  push:
 
 jobs:
- test-grype-action:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: This step only checks out the action's code
-        uses: anchore/grype-action@584451001a1895a623a35a26c4f0b2f11f4a43da
+      - uses: anchore/grype-action@v3
         with:
-          image: 'hello-world'
+          image: 'alpine:latest'
