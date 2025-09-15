@@ -36,6 +36,7 @@ jobs:
         uses: anchore/scan-action@v6
         with:
           image: 'my-app:latest'
+          severity-cutoff: 'low'        # <-- This is the new line
           output-format: 'json'
           output-file: 'grype-results.json'
           fail-build: false
