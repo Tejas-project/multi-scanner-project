@@ -7,6 +7,18 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: anchore/grype-action@v3
+      - name: Run Grype Vulnerability Scanner (Anchore Scan Action)
+        uses: anchore/scan-action@v6
         with:
           image: 'alpine:latest'
+          severity-cutoff: 'none'       # do not fail on any severity
+          output-format: 'json'
+          fail-build: false
+          acs-report-enable: true
+          output-file: 'grype-results.json'
+
+      - name: Upload scanner report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: grype-report
+          path: grype-results.json
