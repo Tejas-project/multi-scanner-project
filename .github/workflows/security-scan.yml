@@ -40,12 +40,13 @@ jobs:
           output-file: 'grype-results.json'
           fail-on-severity: 'none'
 
+      # ----- CORRECTED SECTION -----
       - name: Run Hadolint Dockerfile Linter
         uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: Dockerfile
-          format: json
-          output-file: 'hadolint-results.json
+          format: 'json'
+          output-file: 'hadolint-results.json'
           no-fail: true
 
       # ----- Archive Results -----
