@@ -11,11 +11,10 @@ jobs:
         uses: anchore/scan-action@v6
         with:
           image: 'alpine:latest'
-          severity-cutoff: 'none'       # do not fail on any severity
+          severity-cutoff: 'low'       # options: negligible, low, medium, high, critical
           output-format: 'json'
-          fail-build: false
-          acs-report-enable: true
           output-file: 'grype-results.json'
+          fail-build: false
 
       - name: Upload scanner report as artifact
         uses: actions/upload-artifact@v4
