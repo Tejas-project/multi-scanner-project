@@ -1,0 +1,5 @@
+# Ignore generated scanner reports
+trivy-results.json
+grype-results.json
+hadolint-results.json
+normalized-results.json

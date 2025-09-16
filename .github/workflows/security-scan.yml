@@ -1,55 +1,66 @@
 name: Multi-Scanner Security Analysis
 
+# Trigger the workflow on pushes, pull requests, and manual dispatch
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:   # <-- allows manual trigger from GitHub Actions UI
 
 jobs:
   security-analysis:
     runs-on: ubuntu-latest
     steps:
+      # Checkout the repository so we have access to code and Dockerfile
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Build the Docker image that will be scanned
       - name: Build a Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
-          push: false
-          tags: my-app:latest
+          context: .             # Build from repo root
+          push: false            # Do not push to registry (local only for scanning)
+          tags: my-app:latest    # Tag used by scanners
 
       # ----- Scanner Steps -----
+
+      # Run Trivy to scan the Docker image for OS and library vulnerabilities
       - name: Run Trivy Vulnerability Scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'my-app:latest'
-          format: 'json'
-          output: 'trivy-results.json'
-          exit-code: '0'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH,MEDIUM,LOW'
+          image-ref: 'my-app:latest'     
+          format: 'json'                 
+          output: 'trivy-results.json'   
+          exit-code: '0'                 
+          ignore-unfixed: true           
+          vuln-type: 'os,library'        
+          severity: 'CRITICAL,HIGH,MEDIUM,LOW'  
 
+      # Run Grype (via Anchore scan-action) to scan the Docker image
       - name: Run Anchore Vulnerability Scanner (Grype)
         uses: anchore/scan-action@v6
         with:
-          image: 'my-app:latest'
-          severity-cutoff: 'low'        # <-- This is the new line
-          output-format: 'json'
+          image: 'my-app:latest'         
+          severity-cutoff: 'low'         
+          output-format: 'json'          
           output-file: 'grype-results.json'
-          fail-build: false
+          fail-build: false              
 
+      # Run Hadolint to lint the Dockerfile for best practices and misconfigurations
       - name: Run Hadolint Dockerfile Linter
         uses: hadolint/hadolint-action@v3.1.0
         with:
-          dockerfile: Dockerfile
-          format: 'json'
+          dockerfile: Dockerfile         
+          format: 'json'                 
           output-file: 'hadolint-results.json'
-          no-fail: true
+          no-fail: true                  
 
-      # ----- Archive Results -----
+      # ----- Archive Raw Results -----
+
+      # Upload the raw JSON outputs from Trivy, Grype, and Hadolint
+      # Keeps original reports available for debugging/analysis
       - name: Upload scanner reports as artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -58,3 +69,27 @@ jobs:
             trivy-results.json
             grype-results.json
             hadolint-results.json
+
+      # ----- Normalization Step -----
+
+      # Install Python so we can run the normalization script
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
+      # Run the Python script that merges, normalizes, and deduplicates all findings
+      - name: Normalize scanner results
+        run: |
+          python scripts/normalize.py \
+            --trivy trivy-results.json \
+            --grype grype-results.json \
+            --hadolint hadolint-results.json \
+            --output normalized-results.json
+
+      # Upload the single normalized JSON report for use in Phase 4 (consensus engine)
+      - name: Upload normalized report
+        uses: actions/upload-artifact@v4
+        with:
+          name: normalized-report
+          path: normalized-results.json
