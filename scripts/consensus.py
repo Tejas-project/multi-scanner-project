@@ -1,87 +1,96 @@
-#!/usr/bin/env python3
-"""
-scripts/consensus.py
-Generate a consensus report from normalized scanner results.
-
-Usage:
-  python scripts/consensus.py --input normalized-results.json --output consensus-results.json
-"""
-
-import argparse
 import json
-from pathlib import Path
-from typing import List, Dict, Any
+import argparse
+from collections import defaultdict
 
-# Optional: map severities to numeric values for comparison
-SEVERITY_ORDER = {
-    "LOW": 1,
-    "MEDIUM": 2,
-    "HIGH": 3,
-    "CRITICAL": 4
-}
+def load_json(file_path):
+    try:
+        with open(file_path, "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print(f"[!] file missing: {file_path}")
+        return []
 
-def make_key(finding: Dict[str, Any]) -> str:
-    """
-    Create a unique key for a finding, similar to normalize.py
-    """
-    if finding.get("id"):
-        return f"{finding.get('id')}|{finding.get('package') or ''}|{finding.get('version') or ''}"
-    else:
-        return f"NOID|{finding.get('package') or ''}"
+def normalize_findings(trivy, grype, hadolint):
+    all_findings = []
+
+    # Example: flatten Trivy findings
+    for f in trivy:
+        all_findings.append({
+            "scanner": "trivy",
+            "id": f.get("VulnerabilityID"),
+            "package": f.get("PkgName"),
+            "severity": f.get("Severity", "LOW"),
+            "description": f.get("Title", ""),
+            "scanner_count": 1,
+            "exploit_available": f.get("PrimaryURL") is not None
+        })
+
+    # Flatten Grype findings
+    for f in grype:
+        all_findings.append({
+            "scanner": "grype",
+            "id": f.get("Vulnerability", f.get("ID")),
+            "package": f.get("Package", ""),
+            "severity": f.get("Severity", "LOW"),
+            "description": f.get("Description", ""),
+            "scanner_count": 1,
+            "exploit_available": f.get("Advisory") is not None
+        })
+
+    # Flatten Hadolint findings
+    for f in hadolint:
+        all_findings.append({
+            "scanner": "hadolint",
+            "id": f.get("code"),
+            "package": f.get("file"),
+            "severity": "LOW",
+            "description": f.get("message", ""),
+            "scanner_count": 1,
+            "exploit_available": False
+        })
+
+    return all_findings
+
+def deduplicate_findings(findings):
+    deduped = defaultdict(lambda: {"scanner_count": 0, "severity": "LOW"})
+    for f in findings:
+        key = f["id"] + "|" + f["package"]
+        if deduped[key]["scanner_count"] > 0:
+            deduped[key]["scanner_count"] += 1
+        else:
+            deduped[key].update(f)
+    return list(deduped.values())
+
+def add_priority_score(findings):
+    severity_weights = {"CRITICAL": 4, "HIGH": 3, "MEDIUM": 2, "LOW": 1}
+    for f in findings:
+        severity_score = severity_weights.get(f["severity"].upper(), 0)
+        exploit_score = 2 if f.get("exploit_available") else 0
+        consensus_score = f.get("scanner_count", 1)
+        f["priority_score"] = severity_score + exploit_score + consensus_score
+    return findings
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate consensus from normalized scanner JSON.")
-    parser.add_argument("--input", default="normalized-results.json", help="Path to normalized JSON")
-    parser.add_argument("--output", default="consensus-results.json", help="Output JSON path")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--trivy", default="trivy-results.json")
+    parser.add_argument("--grype", default="grype-results.json")
+    parser.add_argument("--hadolint", default="hadolint-results.json")
+    parser.add_argument("--output", default="consensus-results.json")
     args = parser.parse_args()
 
-    input_path = Path(args.input)
-    output_path = Path(args.output)
+    trivy_data = load_json(args.trivy)
+    grype_data = load_json(args.grype)
+    hadolint_data = load_json(args.hadolint)
 
-    data = json.loads(input_path.read_text(encoding="utf-8"))
+    findings = normalize_findings(trivy_data, grype_data, hadolint_data)
+    print(f"[+] Parsed {len(findings)} raw findings from inputs.")
 
-    consensus_dict = {}
+    findings = deduplicate_findings(findings)
+    findings = add_priority_score(findings)
+    print(f"[+] Wrote {len(findings)} consensus findings to {args.output}")
 
-    for f in data:
-        key = make_key(f)
-        if key not in consensus_dict:
-            # Initialize consensus entry
-            consensus_dict[key] = {
-                **f,
-                "final_severity": f["severity"],
-                "scanners_reporting": [f["scanner"]] if f.get("scanner") else [],
-                "confidence": 1
-            }
-        else:
-            existing = consensus_dict[key]
-            # Merge scanners
-            scanners = set(existing["scanners_reporting"])
-            if f.get("scanner"):
-                scanners.update([s.strip() for s in f["scanner"].split(",")])
-            existing["scanners_reporting"] = sorted(scanners)
-            existing["confidence"] = len(existing["scanners_reporting"])
-
-            # Pick the highest severity
-            if SEVERITY_ORDER.get(f["severity"], 0) > SEVERITY_ORDER.get(existing["final_severity"], 0):
-                existing["final_severity"] = f["severity"]
-
-            # Merge description if new info
-            if f.get("description") and f["description"] not in existing.get("description", ""):
-                if len(existing.get("description", "")) < 200:
-                    existing["description"] = (existing.get("description", "") + "\n\n" + f["description"]).strip()
-
-            # Merge fixed_version if missing
-            if not existing.get("fixed_version") and f.get("fixed_version"):
-                existing["fixed_version"] = f["fixed_version"]
-
-            # Merge location if missing
-            if not existing.get("location") and f.get("location"):
-                existing["location"] = f["location"]
-
-    # Write final consensus results
-    final_list: List[Dict[str, Any]] = list(consensus_dict.values())
-    output_path.write_text(json.dumps(final_list, indent=2), encoding="utf-8")
-    print(f"[+] Wrote {len(final_list)} consensus findings to {output_path}")
+    with open(args.output, "w") as f:
+        json.dump(findings, f, indent=2)
 
 if __name__ == "__main__":
     main()
