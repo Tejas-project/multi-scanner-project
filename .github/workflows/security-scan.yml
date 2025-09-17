@@ -32,20 +32,20 @@ jobs:
           image-ref: 'my-app:latest'
           format: 'json'
           output: 'trivy-results.json'
-          exit-code: '0'
+          exit-code: '1'               # fail only if CRITICAL/HIGH found
           ignore-unfixed: true
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH,MEDIUM,LOW'
+          severity: 'CRITICAL,HIGH'    # only check high & critical
 
       # Run Grype (via Anchore scan-action) to scan the Docker image
       - name: Run Anchore Vulnerability Scanner (Grype)
         uses: anchore/scan-action@v6
         with:
           image: 'my-app:latest'
-          severity-cutoff: 'low'
+          severity-cutoff: 'high'      # fail only if high & above
           output-format: 'json'
           output-file: 'grype-results.json'
-          fail-build: false
+          fail-build: true             # enforce fail for CRITICAL/HIGH
 
       # Run Hadolint to lint the Dockerfile for best practices and misconfigurations
       - name: Run Hadolint Dockerfile Linter
@@ -54,7 +54,7 @@ jobs:
           dockerfile: Dockerfile
           format: 'json'
           output-file: 'hadolint-results.json'
-          no-fail: true
+          no-fail: true                # do not fail on lint issues
 
       # ----- Archive Raw Results -----
       # Upload the raw JSON outputs from Trivy, Grype, and Hadolint
