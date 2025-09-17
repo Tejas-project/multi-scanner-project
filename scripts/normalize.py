@@ -1,176 +1,69 @@
-#!/usr/bin/env python3
-"""
-scripts/normalize.py
-Normalize JSON outputs from Trivy, Grype, and Hadolint into a single JSON array.
-Usage:
-  python scripts/normalize.py \
-    --trivy trivy-results.json \
-    --grype grype-results.json \
-    --hadolint hadolint-results.json \
-    --output normalized-results.json
-"""
-
-import argparse
 import json
-import hashlib
-from pathlib import Path
-from typing import List, Dict, Any, Optional
+import argparse
 
-SEVERITY_MAP = {
-    "UNKNOWN": "LOW",
-    "NEGLIGIBLE": "LOW",
-    "LOW": "LOW",
-    "MEDIUM": "MEDIUM",
-    "MODERATE": "MEDIUM",
-    "HIGH": "HIGH",
-    "CRITICAL": "CRITICAL",
-    "ERROR": "HIGH",
-    "WARNING": "MEDIUM",
-    "INFO": "LOW",
-}
-
-
-def normalize_severity(level: Optional[str]) -> str:
-    if not level:
-        return "LOW"
-    return SEVERITY_MAP.get(level.upper(), "LOW")
-
-
-def safe_load(path: Path) -> Optional[Any]:
+def load_json(file_path):
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
+        with open(file_path, "r") as f:
+            return json.load(f)
     except FileNotFoundError:
-        print(f"[!] file missing: {path}")
-        return None
-    except json.JSONDecodeError as e:
-        print(f"[!] json decode error for {path}: {e}")
-        return None
+        print(f"[!] File missing: {file_path}")
+        return []
 
+def normalize_findings(trivy, grype, hadolint):
+    all_findings = []
 
-def parse_trivy(path: Path) -> List[Dict[str, Any]]:
-    data = safe_load(path)
-    findings = []
-    if not data:
-        return findings
-    for result in data.get("Results", []):
-        for vuln in result.get("Vulnerabilities", []) or []:
-            findings.append({
-                "id": vuln.get("VulnerabilityID"),
-                "package": vuln.get("PkgName"),
-                "version": vuln.get("InstalledVersion"),
-                "severity": normalize_severity(vuln.get("Severity")),
-                "scanner": "trivy",
-                "description": vuln.get("Description") or vuln.get("Title") or "",
-                "fixed_version": vuln.get("FixedVersion"),
-                "location": result.get("Target")
-            })
-    return findings
+    for f in trivy:
+        all_findings.append({
+            "scanner": "trivy",
+            "id": f.get("VulnerabilityID"),
+            "package": f.get("PkgName"),
+            "severity": f.get("Severity", "LOW"),
+            "description": f.get("Title", ""),
+            "scanner_count": 1,
+            "exploit_available": f.get("PrimaryURL") is not None
+        })
 
-
-def parse_grype(path: Path) -> List[Dict[str, Any]]:
-    data = safe_load(path)
-    findings = []
-    if not data:
-        return findings
-    for match in data.get("matches", []) or []:
-        vuln = match.get("vulnerability", {}) or {}
-        artifact = match.get("artifact", {}) or {}
-        fix_versions = vuln.get("fix", {}).get("versions", []) if vuln.get("fix") else []
-        findings.append({
-            "id": vuln.get("id"),
-            "package": artifact.get("name"),
-            "version": artifact.get("version"),
-            "severity": normalize_severity(vuln.get("severity")),
+    for f in grype:
+        all_findings.append({
             "scanner": "grype",
-            "description": vuln.get("description") or "",
-            "fixed_version": fix_versions[0] if fix_versions else None,
-            "location": artifact.get("locations") or artifact.get("matchDetails") or None
+            "id": f.get("Vulnerability", f.get("ID")),
+            "package": f.get("Package", ""),
+            "severity": f.get("Severity", "LOW"),
+            "description": f.get("Description", ""),
+            "scanner_count": 1,
+            "exploit_available": f.get("Advisory") is not None
         })
-    return findings
 
-
-def parse_hadolint(path: Path) -> List[Dict[str, Any]]:
-    data = safe_load(path)
-    findings = []
-    if not data:
-        return findings
-    for issue in data or []:
-        findings.append({
-            "id": issue.get("code"),
-            "package": "Dockerfile",
-            "version": None,
-            "severity": normalize_severity(issue.get("level")),
+    for f in hadolint:
+        all_findings.append({
             "scanner": "hadolint",
-            "description": issue.get("message") or "",
-            "fixed_version": None,
-            "location": issue.get("file") or issue.get("line")
+            "id": f.get("code"),
+            "package": f.get("file"),
+            "severity": "LOW",
+            "description": f.get("message", ""),
+            "scanner_count": 1,
+            "exploit_available": False
         })
-    return findings
 
-
-def make_key(f: Dict[str, Any]) -> str:
-    if f.get("id"):
-        key = f"{f.get('id')}|{f.get('package') or ''}|{f.get('version') or ''}"
-    else:
-        digest = hashlib.sha1((f.get("package","") + (f.get("version") or "") + (f.get("description") or "")).encode("utf-8")).hexdigest()
-        key = f"NOID|{digest}"
-    return key
-
-
-def merge_findings(existing: Dict[str, Any], new: Dict[str, Any]) -> Dict[str, Any]:
-    scanners = set([s.strip() for s in str(existing.get("scanner", "")).split(",") if s.strip()])
-    scanners.update([s.strip() for s in str(new.get("scanner", "")).split(",") if s.strip()])
-    existing["scanner"] = ", ".join(sorted(scanners))
-
-    order = {"CRITICAL": 4, "HIGH": 3, "MEDIUM": 2, "LOW": 1}
-    if order.get(new.get("severity"), 0) > order.get(existing.get("severity"), 0):
-        existing["severity"] = new.get("severity")
-
-    if not existing.get("fixed_version") and new.get("fixed_version"):
-        existing["fixed_version"] = new.get("fixed_version")
-
-    if not existing.get("location") and new.get("location"):
-        existing["location"] = new.get("location")
-
-    if new.get("description") and new.get("description") not in existing.get("description", ""):
-        if len(existing.get("description", "")) < 200:
-            existing["description"] = (existing.get("description", "") + "\n\n" + new.get("description")).strip()
-
-    return existing
-
+    return all_findings
 
 def main():
-    parser = argparse.ArgumentParser(description="Normalize scanner JSON outputs to a single JSON file.")
-    parser.add_argument("--trivy", default="trivy-results.json", help="Path to Trivy JSON")
-    parser.add_argument("--grype", default="grype-results.json", help="Path to Grype JSON")
-    parser.add_argument("--hadolint", default="hadolint-results.json", help="Path to Hadolint JSON")
-    parser.add_argument("--output", default="normalized-results.json", help="Output JSON path")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--trivy", default="trivy-results.json")
+    parser.add_argument("--grype", default="grype-results.json")
+    parser.add_argument("--hadolint", default="hadolint-results.json")
+    parser.add_argument("--output", default="normalized-results.json")
     args = parser.parse_args()
 
-    trivy_path = Path(args.trivy)
-    grype_path = Path(args.grype)
-    hadolint_path = Path(args.hadolint)
-    out_path = Path(args.output)
+    trivy_data = load_json(args.trivy)
+    grype_data = load_json(args.grype)
+    hadolint_data = load_json(args.hadolint)
 
-    findings = []
-    findings += parse_trivy(trivy_path)
-    findings += parse_grype(grype_path)
-    findings += parse_hadolint(hadolint_path)
-
+    findings = normalize_findings(trivy_data, grype_data, hadolint_data)
     print(f"[+] Parsed {len(findings)} raw findings from inputs.")
 
-    unique = {}
-    for f in findings:
-        key = make_key(f)
-        if key not in unique:
-            unique[key] = f
-        else:
-            unique[key] = merge_findings(unique[key], f)
-
-    final = list(unique.values())
-    out_path.write_text(json.dumps(final, indent=2), encoding="utf-8")
-    print(f"[+] Wrote {len(final)} normalized findings to {out_path}")
-
+    with open(args.output, "w") as f:
+        json.dump(findings, f, indent=2)
 
 if __name__ == "__main__":
     main()

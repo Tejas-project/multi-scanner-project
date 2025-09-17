@@ -6,17 +6,17 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch:   # enables manual trigger
+  workflow_dispatch:   # allows manual trigger from GitHub UI
 
 jobs:
   security-analysis:
     runs-on: ubuntu-latest
     steps:
-      # Checkout the repository so we have access to code and Dockerfile
+      # Step 1: Checkout repository code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Build the Docker image that will be scanned
+      # Step 2: Build Docker image for scanning
       - name: Build a Docker image
         uses: docker/build-push-action@v5
         with:
@@ -25,39 +25,38 @@ jobs:
           tags: my-app:latest    # Tag used by scanners
 
       # ----- Scanner Steps -----
-      # Run Trivy to scan the Docker image for OS and library vulnerabilities
+      # Step 3: Run Trivy scanner (OS & library vulnerabilities)
       - name: Run Trivy Vulnerability Scanner
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: 'my-app:latest'
           format: 'json'
           output: 'trivy-results.json'
-          exit-code: '1'               # fail only if CRITICAL/HIGH found
-          ignore-unfixed: true
+          exit-code: '1'               # Fail workflow only if CRITICAL/HIGH found
+          ignore-unfixed: true         # Ignore vulnerabilities that do not have fixes
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'    # only check high & critical
+          severity: 'CRITICAL,HIGH'    # Only consider high/critical for failure
 
-      # Run Grype (via Anchore scan-action) to scan the Docker image
+      # Step 4: Run Grype (via Anchore scan-action) for container vulnerabilities
       - name: Run Anchore Vulnerability Scanner (Grype)
         uses: anchore/scan-action@v6
         with:
           image: 'my-app:latest'
-          severity-cutoff: 'high'      # fail only if high & above
+          severity-cutoff: 'high'      # Fail only on HIGH/CRITICAL vulnerabilities
           output-format: 'json'
           output-file: 'grype-results.json'
-          fail-build: true             # enforce fail for CRITICAL/HIGH
+          fail-build: true             # Enforce failure on high severity findings
 
-      # Run Hadolint to lint the Dockerfile for best practices and misconfigurations
+      # Step 5: Run Hadolint for Dockerfile best practices
       - name: Run Hadolint Dockerfile Linter
         uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: Dockerfile
           format: 'json'
           output-file: 'hadolint-results.json'
-          no-fail: true                # do not fail on lint issues
+          no-fail: true                # Never fail workflow due to lint warnings
 
-      # ----- Archive Raw Results -----
-      # Upload the raw JSON outputs from Trivy, Grype, and Hadolint
+      # ----- Archive Raw Scanner Results -----
       - name: Upload scanner reports as artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -68,13 +67,13 @@ jobs:
             hadolint-results.json
 
       # ----- Normalization Step -----
-      # Install Python so we can run the normalization script
+      # Step 6: Setup Python to run scripts
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.8'
 
-      # Run the Python script that merges, normalizes, and deduplicates all findings
+      # Step 7: Normalize and deduplicate scanner outputs
       - name: Normalize scanner results
         run: |
           python scripts/normalize.py \
@@ -83,7 +82,7 @@ jobs:
             --hadolint hadolint-results.json \
             --output normalized-results.json
 
-      # Upload the single normalized JSON report for use in consensus/prioritization
+      # Step 8: Upload normalized report for downstream use
       - name: Upload normalized report
         uses: actions/upload-artifact@v4
         with:
@@ -91,14 +90,14 @@ jobs:
           path: normalized-results.json
 
       # ----- Consensus Step -----
-      # Run Python script to compute consensus findings from normalized results
+      # Step 9: Generate consensus findings from normalized results
       - name: Generate consensus report
         run: |
           python scripts/consensus.py \
             --input normalized-results.json \
             --output consensus-results.json
 
-      # Upload the consensus JSON report as an artifact
+      # Step 10: Upload consensus report for analysis
       - name: Upload consensus report
         uses: actions/upload-artifact@v4
         with:
@@ -106,7 +105,7 @@ jobs:
           path: consensus-results.json
 
       # ----- Prioritization Step -----
-      # Run Python script to assign priority scores based on severity, exploitability, and consensus
+      # Step 11: Assign priority scores based on severity, exploitability, and consensus
       - name: Prioritize top vulnerabilities
         run: |
           python scripts/prioritize.py \
@@ -114,7 +113,7 @@ jobs:
             --output prioritized-findings.json \
             --top 10
 
-      # Upload prioritized findings as an artifact
+      # Step 12: Upload prioritized findings for reporting and review
       - name: Upload prioritized report
         uses: actions/upload-artifact@v4
         with:
