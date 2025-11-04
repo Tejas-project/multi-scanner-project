@@ -1,102 +1,119 @@
 #!/usr/bin/env python3
+"""
+convert_to_sarif.py — Converts normalized JSON findings to GitHub SARIF format.
+Fixes:
+- Ensures numeric security-severity values (required by GitHub Code Scanning)
+- Avoids duplicate rule IDs
+- Ensures valid helpUri types
+"""
+
 import json
 import argparse
-from pathlib import Path
+import hashlib
 import uuid
 from datetime import datetime
+from pathlib import Path
 
+# Severity → Numeric CVSS mapping
+SEVERITY_SCORES = {
+    "CRITICAL": 9.0,
+    "HIGH": 7.0,
+    "MEDIUM": 5.0,
+    "LOW": 3.0,
+    "UNKNOWN": 1.0
+}
 
-def convert_to_sarif(input_path, output_path):
-    data = json.loads(Path(input_path).read_text(encoding="utf-8"))
+def normalize_severity(sev: str) -> float:
+    return SEVERITY_SCORES.get(sev.upper(), 1.0)
 
-    rules_seen = set()
-    rules = []
-    results = []
+def make_rule(find):
+    """Create SARIF rule entry."""
+    rule_id = find.get("id") or hashlib.sha1(
+        f"{find.get('package','')}{find.get('description','')}".encode("utf-8")
+    ).hexdigest()
 
-    severity_map = {
-        "CRITICAL": "error",
-        "HIGH": "error",
-        "MEDIUM": "warning",
-        "LOW": "note",
-        "UNKNOWN": "none"
+    description = find.get("description") or "No description available."
+    return {
+        "id": rule_id,
+        "shortDescription": {"text": description[:100]},
+        "fullDescription": {"text": description},
+        "helpUri": f"https://nvd.nist.gov/vuln/detail/{rule_id}" if rule_id.startswith("CVE") else "https://nvd.nist.gov/",
+        "properties": {
+            "security-severity": normalize_severity(find.get("severity", "UNKNOWN")),
+            "scanner": find.get("scanner", "unknown")
+        }
     }
 
-    for finding in data:
-        rule_id = str(finding.get("id") or f"NOID-{uuid.uuid4()}")
-        desc = finding.get("description", "")
-        sev = str(finding.get("severity", "UNKNOWN")).upper()
-        scanner = finding.get("scanner", "unknown")
+def make_result(find):
+    """Create SARIF result entry."""
+    severity = find.get("severity", "LOW").upper()
+    level = "error" if severity in ["CRITICAL", "HIGH"] else "warning" if severity == "MEDIUM" else "note"
 
-        # Build rule (deduplicated)
-        if rule_id not in rules_seen:
-            rules_seen.add(rule_id)
-            rule_entry = {
-                "id": rule_id,
-                "shortDescription": {"text": desc[:120]},
-                "fullDescription": {"text": desc},
-                "properties": {
-                    "security-severity": sev,
-                    "scanner": scanner
+    return {
+        "ruleId": find.get("id") or "NOID",
+        "level": level,
+        "message": {"text": find.get("description", "No details available.")},
+        "locations": [{
+            "physicalLocation": {
+                "artifactLocation": {
+                    "uri": str(find.get("location") or "Dockerfile")
+                },
+                "region": {
+                    "startLine": 1,
+                    "startColumn": 1,
+                    "endLine": 1,
+                    "endColumn": 1
                 }
             }
-            # only include helpUri if it's a valid CVE
-            if rule_id.startswith("CVE-"):
-                rule_entry["helpUri"] = f"https://nvd.nist.gov/vuln/detail/{rule_id}"
+        }],
+        "properties": {
+            "package": find.get("package"),
+            "version": find.get("version"),
+            "scanner": find.get("scanner")
+        }
+    }
 
-            rules.append(rule_entry)
+def main():
+    parser = argparse.ArgumentParser(description="Convert normalized results to SARIF format.")
+    parser.add_argument("--input", required=True, help="Path to normalized JSON results")
+    parser.add_argument("--output", required=True, help="Path to SARIF output file")
+    args = parser.parse_args()
 
-        # Map severity → SARIF level
-        level = severity_map.get(sev, "note")
+    findings = json.loads(Path(args.input).read_text(encoding="utf-8"))
 
-        results.append({
-            "ruleId": rule_id,
-            "level": level,
-            "message": {"text": desc},
-            "locations": [{
-                "physicalLocation": {
-                    "artifactLocation": {
-                        "uri": str(finding.get("location") or "unknown")
-                    },
-                    "region": {
-                        "startLine": 1,
-                        "startColumn": 1
-                    }
-                }
-            }],
-            "properties": {
-                "package": finding.get("package"),
-                "version": finding.get("version"),
-                "scanner": scanner
-            }
-        })
+    rules_map = {}
+    results = []
+
+    for f in findings:
+        rule_id = f.get("id") or "NOID"
+        if rule_id not in rules_map:
+            rules_map[rule_id] = make_rule(f)
+        results.append(make_result(f))
 
     sarif = {
         "version": "2.1.0",
         "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
-        "runs": [{
-            "tool": {
-                "driver": {
-                    "name": "Multi-Scanner Security Analyzer",
-                    "informationUri": "https://github.com/Tejas-project/multi-scanner-project",
-                    "rules": rules
-                }
-            },
-            "automationDetails": {
-                "id": "multi-scanner-analysis",
-                "guid": str(uuid.uuid4())  # valid UUID
-            },
-            "columnKind": "utf16CodeUnits",
-            "results": results
-        }]
+        "runs": [
+            {
+                "tool": {
+                    "driver": {
+                        "name": "Multi-Scanner Security Analyzer",
+                        "informationUri": "https://github.com/Tejas-project/multi-scanner-project",
+                        "rules": list(rules_map.values())
+                    }
+                },
+                "automationDetails": {
+                    "id": "multi-scanner-analysis",
+                    "guid": str(uuid.uuid4())
+                },
+                "columnKind": "utf16CodeUnits",
+                "results": results
+            }
+        ]
     }
 
-    Path(output_path).write_text(json.dumps(sarif, indent=2), encoding="utf-8")
-    print(f"[+] Valid SARIF file written to {output_path} at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-
+    Path(args.output).write_text(json.dumps(sarif, indent=2), encoding="utf-8")
+    print(f"[+] Valid SARIF file written to {args.output} at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Convert normalized results to SARIF format.")
-    parser.add_argument("--input", required=True, help="Path to normalized JSON results.")
-    parser.add_argument("--output", required=True, help="Path to output SARIF file.")
-    args = parser.parse_args()
-    convert_to_sarif(args.input, args.output)
+    main()
