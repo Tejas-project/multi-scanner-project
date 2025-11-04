@@ -3,3 +3,8 @@ trivy-results.json
 grype-results.json
 hadolint-results.json
 normalized-results.json
+
+# Scanner outputs
+*.json
+!scripts/*.py
+!package.json

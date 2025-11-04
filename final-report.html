@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Multi-Scanner Security Report</title>
+<style>
+body{font-family:Segoe UI, Roboto, Arial, sans-serif; margin:18px;}
+h1,h2{color:#222}
+table{border-collapse:collapse;width:100%;margin-bottom:18px}
+th,td{border:1px solid #ddd;padding:8px;text-align:left}
+th{background:#f5f5f5}
+.small{font-size:0.9em;color:#555}
+.bad{color:#b30000;font-weight:700}
+.warn{color:#b36b00;font-weight:600}
+.ok{color:#0b6623;font-weight:700}
+.kv{font-weight:600}
+.code{font-family:monospace;background:#f6f6f6;padding:2px 6px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<h1>Multi-Scanner Security Report</h1>
+<p class='small'>Generated: 2025-11-03T06:43:54.238627 UTC</p>
+<h2>Overview</h2>
+<table><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody>
+<tr><td class='kv'>Raw normalized findings</td><td>165</td></tr>
+<tr><td class='kv'>Consensus findings</td><td>165</td></tr>
+<tr><td class='kv'>Prioritized findings (all)</td><td>0</td></tr>
+</tbody></table>
+<h2>Severity Breakdown (normalized)</h2>
+<table><thead><tr><th>Severity</th><th>Count</th></tr></thead><tbody>
+<tr><td class='ok'>LOW</td><td>77</td></tr>
+<tr><td class='warn'>MEDIUM</td><td>52</td></tr>
+<tr><td class='bad'>HIGH</td><td>31</td></tr>
+<tr><td class='bad'>CRITICAL</td><td>5</td></tr>
+</tbody></table>
+<h2>Findings by Scanner</h2>
+<table><thead><tr><th>Scanner</th><th>Count</th></tr></thead><tbody>
+<tr><td>grype</td><td>160</td></tr>
+<tr><td>trivy</td><td>54</td></tr>
+</tbody></table>
+<h2>Consensus Score Distribution</h2>
+<table><thead><tr><th>Bucket</th><th>Count</th></tr></thead><tbody>
+<tr><td>unknown</td><td>165</td></tr>
+</tbody></table>
+<h2>Top 0 Prioritized Findings</h2>
+<table><thead><tr><th>Rank</th><th>ID</th><th>Severity</th><th>Priority Score</th><th>Consensus Score</th><th>Scanners</th><th>Description</th></tr></thead><tbody>
+</tbody></table>
+<h2 class='small'>Full prioritized findings (JSON)</h2>
+<pre class='small'>
+[]
+</pre>
+
+<footer class="small">Report generated on 2025-11-03T06:43:54.238627Z by generate_report.py</footer>
+</body></html>
