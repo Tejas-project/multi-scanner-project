@@ -1,13 +1,43 @@
 import json
 import argparse
-import hashlib
 from datetime import datetime
 from urllib.parse import quote
 
-def normalize_uri(uri: str) -> str:
-    """Return safe file URI for SARIF"""
+
+def normalize_uri(uri):
+    """Return a valid and safe file URI for SARIF."""
+    if isinstance(uri, list):  # handle lists of paths
+        uri = uri[0] if uri else "unknown-location"
+    uri = str(uri)
     uri = uri.replace(" ", "_").replace(":", "_").replace("(", "_").replace(")", "_")
     return f"file:///{quote(uri)}"
+
+
+def severity_to_level(sev: str) -> str:
+    sev = sev.upper()
+    if sev == "CRITICAL":
+        return "error"
+    elif sev == "HIGH":
+        return "error"
+    elif sev == "MEDIUM":
+        return "warning"
+    elif sev == "LOW":
+        return "note"
+    else:
+        return "none"
+
+
+def severity_to_score(sev: str) -> float:
+    """Convert severity to numeric value for SARIF (0.0–10.0)."""
+    mapping = {
+        "CRITICAL": 9.5,
+        "HIGH": 8.0,
+        "MEDIUM": 5.0,
+        "LOW": 2.5,
+        "UNKNOWN": 0.0
+    }
+    return mapping.get(sev.upper(), 0.0)
+
 
 def main():
     parser = argparse.ArgumentParser(description="Convert normalized vulnerability data to SARIF format")
@@ -23,21 +53,21 @@ def main():
 
     for item in data:
         vuln_id = item.get("id", "UNKNOWN_ID")
-        description = item.get("description", "No detailed description provided.")
+        description = item.get("description", "").strip()
         severity = item.get("severity", "UNKNOWN").upper()
         package = item.get("package", "unknown-package")
         scanner = item.get("scanner", "unknown-scanner")
         location = item.get("location", "my-app_latest_debian_12.7")
 
-        # Required message.text field
-        message_text = description if description.strip() else f"{vuln_id} detected in {package} ({scanner})"
+        # Fallback message
+        message_text = description if description else f"{vuln_id} detected in {package} by {scanner}"
 
-        # Create SARIF rule entry (deduplicated)
+        # Deduplicate rule entries
         if vuln_id not in rules_dict:
             rule = {
                 "id": vuln_id,
-                "shortDescription": {"text": description[:120]},
-                "fullDescription": {"text": description},
+                "shortDescription": {"text": description[:120] or vuln_id},
+                "fullDescription": {"text": description or "No detailed description available."},
                 "helpUri": f"https://nvd.nist.gov/vuln/detail/{vuln_id}",
                 "properties": {
                     "security-severity": str(severity_to_score(severity)),
@@ -46,21 +76,18 @@ def main():
             }
             rules_dict[vuln_id] = rule
 
-        # Create SARIF result entry
+        # Build SARIF result
         result = {
             "ruleId": vuln_id,
             "level": severity_to_level(severity),
-            "message": {"text": message_text},  # <-- REQUIRED field
+            "message": {"text": message_text},
             "locations": [
                 {
                     "physicalLocation": {
                         "artifactLocation": {
                             "uri": normalize_uri(location)
                         },
-                        "region": {
-                            "startLine": 1,
-                            "startColumn": 1
-                        }
+                        "region": {"startLine": 1, "startColumn": 1}
                     }
                 }
             ],
@@ -72,7 +99,7 @@ def main():
         }
         results.append(result)
 
-    # Assemble SARIF structure
+    # Construct SARIF output
     sarif = {
         "version": "2.1.0",
         "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
@@ -95,33 +122,6 @@ def main():
         json.dump(sarif, f, indent=2)
 
     print(f"[+] Valid SARIF file written to {args.output} at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-
-
-def severity_to_level(sev: str) -> str:
-    sev = sev.upper()
-    if sev == "CRITICAL":
-        return "error"
-    elif sev == "HIGH":
-        return "error"
-    elif sev == "MEDIUM":
-        return "warning"
-    elif sev == "LOW":
-        return "note"
-    else:
-        return "none"
-
-
-def severity_to_score(sev: str) -> float:
-    """Convert severity to numeric value (SARIF security-severity expects a float between 0.0–10.0)."""
-    sev = sev.upper()
-    mapping = {
-        "CRITICAL": 9.5,
-        "HIGH": 8.0,
-        "MEDIUM": 5.0,
-        "LOW": 2.5,
-        "UNKNOWN": 0.0
-    }
-    return mapping.get(sev, 0.0)
 
 
 if __name__ == "__main__":
