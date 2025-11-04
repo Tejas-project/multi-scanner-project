@@ -124,3 +124,15 @@ jobs:
         with:
           name: multi-scanner-report
           path: multi-scanner-report.html
+
+           # ------------------- SARIF Conversion -------------------
+      - name: Convert normalized report to SARIF
+        run: |
+          python scripts/convert_to_sarif.py \
+            --input normalized-results.json \
+            --output results.sarif
+
+      - name: Upload SARIF to GitHub Security Tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif
