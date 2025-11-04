@@ -11,184 +11,184 @@
             {
               "id": "CVE-2023-4039",
               "shortDescription": {
-                "text": "**DISPUTED**A failure in the -fstack-protector feature in GCC-based toolchains \nthat target AArch64 allows an attacker t"
+                "text": "**DISPUTED**A failure in the -fstack-protector feature in GCC-based toolchains \nthat target AArch64 "
               },
               "fullDescription": {
                 "text": "**DISPUTED**A failure in the -fstack-protector feature in GCC-based toolchains \nthat target AArch64 allows an attacker to exploit an existing buffer \noverflow in dynamically-sized local variables in your application \nwithout this being detected. This stack-protector failure only applies \nto C99-style dynamically-sized local variables or those created using \nalloca(). The stack-protector operates as intended for statically-sized \nlocal variables.\n\nThe default behavior when the stack-protector \ndetects an overflow is to terminate your application, resulting in \ncontrolled loss of availability. An attacker who can exploit a buffer \noverflow without triggering the stack-protector might be able to change \nprogram flow control to cause an uncontrolled loss of availability or to\n go further and affect confidentiality or integrity. NOTE: The GCC project argues that this is a missed hardening bug and not a vulnerability by itself."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-4039",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-4039"
+              }
             },
             {
               "id": "CVE-2025-4802",
               "shortDescription": {
-                "text": "Untrusted LD_LIBRARY_PATH environment variable vulnerability in the GNU C Library version 2.27 to 2.38 allows attacker c"
+                "text": "Untrusted LD_LIBRARY_PATH environment variable vulnerability in the GNU C Library version 2.27 to 2."
               },
               "fullDescription": {
                 "text": "Untrusted LD_LIBRARY_PATH environment variable vulnerability in the GNU C Library version 2.27 to 2.38 allows attacker controlled loading of dynamically shared library in statically compiled setuid binaries that call dlopen (including internal dlopen calls after setlocale or calls to NSS functions such as getaddrinfo)."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-4802",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-4802"
+              }
             },
             {
               "id": "CVE-2025-0395",
               "shortDescription": {
-                "text": "When the assert() function in the GNU C Library versions 2.13 to 2.40 fails, it does not allocate enough space for the a"
+                "text": "When the assert() function in the GNU C Library versions 2.13 to 2.40 fails, it does not allocate en"
               },
               "fullDescription": {
                 "text": "When the assert() function in the GNU C Library versions 2.13 to 2.40 fails, it does not allocate enough space for the assertion failure message string and size information, which may lead to a buffer overflow if the message string size aligns to page size."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-0395",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-0395"
+              }
             },
             {
               "id": "CVE-2025-8058",
               "shortDescription": {
-                "text": "The regcomp function in the GNU C library version from 2.4 to 2.41 is \nsubject to a double free if some previous allocat"
+                "text": "The regcomp function in the GNU C library version from 2.4 to 2.41 is \nsubject to a double free if s"
               },
               "fullDescription": {
                 "text": "The regcomp function in the GNU C library version from 2.4 to 2.41 is \nsubject to a double free if some previous allocation fails. It can be \naccomplished either by a malloc failure or by using an interposed malloc\n that injects random malloc failures. The double free can allow buffer \nmanipulation depending of how the regex is constructed. This issue \naffects all architectures and ABIs supported by the GNU C library."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-8058",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-8058"
+              }
             },
             {
               "id": "CVE-2025-1390",
               "shortDescription": {
-                "text": "The PAM module pam_cap.so of libcap configuration supports group names starting with \u201c@\u201d, during actual parsing, configu"
+                "text": "The PAM module pam_cap.so of libcap configuration supports group names starting with \u201c@\u201d, during act"
               },
               "fullDescription": {
                 "text": "The PAM module pam_cap.so of libcap configuration supports group names starting with \u201c@\u201d, during actual parsing, configurations not starting with \u201c@\u201d are incorrectly recognized as group names. This may result in nonintended users being granted an inherited capability set, potentially leading to security risks. Attackers can exploit this vulnerability to achieve local privilege escalation on systems where /etc/security/capability.conf is used to configure user inherited privileges by constructing specific usernames."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-1390",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-1390"
+              }
             },
             {
               "id": "CVE-2023-52425",
               "shortDescription": {
-                "text": "libexpat through 2.5.0 allows a denial of service (resource consumption) because many full reparsings are required in th"
+                "text": "libexpat through 2.5.0 allows a denial of service (resource consumption) because many full reparsing"
               },
               "fullDescription": {
                 "text": "libexpat through 2.5.0 allows a denial of service (resource consumption) because many full reparsings are required in the case of a large token for which multiple buffer fills are needed."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-52425",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-52425"
+              }
             },
             {
               "id": "CVE-2024-8176",
               "shortDescription": {
-                "text": "A stack overflow vulnerability exists in the libexpat library due to the way it handles recursive entity expansion in XM"
+                "text": "A stack overflow vulnerability exists in the libexpat library due to the way it handles recursive en"
               },
               "fullDescription": {
                 "text": "A stack overflow vulnerability exists in the libexpat library due to the way it handles recursive entity expansion in XML documents. When parsing an XML document with deeply nested entity references, libexpat can be forced to recurse indefinitely, exhausting the stack space and causing a crash. This issue could lead to denial of service (DoS) or, in some cases, exploitable memory corruption, depending on the environment and library usage."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-8176",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-8176"
+              }
             },
             {
               "id": "CVE-2024-50602",
               "shortDescription": {
-                "text": "An issue was discovered in libexpat before 2.6.4. There is a crash within the XML_ResumeParser function because XML_Stop"
+                "text": "An issue was discovered in libexpat before 2.6.4. There is a crash within the XML_ResumeParser funct"
               },
               "fullDescription": {
                 "text": "An issue was discovered in libexpat before 2.6.4. There is a crash within the XML_ResumeParser function because XML_StopParser can stop/suspend an unstarted parser."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-50602",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-50602"
+              }
             },
             {
               "id": "CVE-2025-32988",
               "shortDescription": {
-                "text": "A flaw was found in GnuTLS. A double-free vulnerability exists in GnuTLS due to incorrect ownership handling in the expo"
+                "text": "A flaw was found in GnuTLS. A double-free vulnerability exists in GnuTLS due to incorrect ownership "
               },
               "fullDescription": {
                 "text": "A flaw was found in GnuTLS. A double-free vulnerability exists in GnuTLS due to incorrect ownership handling in the export logic of Subject Alternative Name (SAN) entries containing an otherName. If the type-id OID is invalid or malformed, GnuTLS will call asn1_delete_structure() on an ASN.1 node it does not own, leading to a double-free condition when the parent function or caller later attempts to free the same structure.\n\nThis vulnerability can be triggered using only public GnuTLS APIs and may result in denial of service or memory corruption, depending on allocator behavior."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-32988",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-32988"
+              }
             },
             {
               "id": "CVE-2025-32990",
               "shortDescription": {
-                "text": "A heap-buffer-overflow (off-by-one) flaw was found in the GnuTLS software in the template parsing logic within the certt"
+                "text": "A heap-buffer-overflow (off-by-one) flaw was found in the GnuTLS software in the template parsing lo"
               },
               "fullDescription": {
                 "text": "A heap-buffer-overflow (off-by-one) flaw was found in the GnuTLS software in the template parsing logic within the certtool utility. When it reads certain settings from a template file, it allows an attacker to cause an out-of-bounds (OOB) NULL pointer write, resulting in memory corruption and a denial-of-service (DoS) that could potentially crash the system."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-32990",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-32990"
+              }
             },
             {
               "id": "CVE-2024-12243",
               "shortDescription": {
-                "text": "A flaw was found in GnuTLS, which relies on libtasn1 for ASN.1 data processing. Due to an inefficient algorithm in libta"
+                "text": "A flaw was found in GnuTLS, which relies on libtasn1 for ASN.1 data processing. Due to an inefficien"
               },
               "fullDescription": {
                 "text": "A flaw was found in GnuTLS, which relies on libtasn1 for ASN.1 data processing. Due to an inefficient algorithm in libtasn1, decoding certain DER-encoded certificate data can take excessive time, leading to increased resource consumption. This flaw allows a remote attacker to send a specially crafted certificate, causing GnuTLS to become unresponsive or slow, resulting in a denial-of-service condition."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-12243",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-12243"
+              }
             },
             {
               "id": "CVE-2025-32989",
               "shortDescription": {
-                "text": "A heap-buffer-overread vulnerability was found in GnuTLS in how it handles the Certificate Transparency (CT) Signed Cert"
+                "text": "A heap-buffer-overread vulnerability was found in GnuTLS in how it handles the Certificate Transpare"
               },
               "fullDescription": {
                 "text": "A heap-buffer-overread vulnerability was found in GnuTLS in how it handles the Certificate Transparency (CT) Signed Certificate Timestamp (SCT) extension during X.509 certificate parsing. This flaw allows a malicious user to create a certificate containing a malformed SCT extension (OID 1.3.6.1.4.1.11129.2.4.2) that contains sensitive data. This issue leads to the exposure of confidential information when GnuTLS verifies certificates from certain websites when the certificate (SCT) is not checked correctly."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-32989",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-32989"
+              }
             },
             {
               "id": "CVE-2025-6395",
               "shortDescription": {
-                "text": "A NULL pointer dereference flaw was found in the GnuTLS software in _gnutls_figure_common_ciphersuite()."
+                "text": "A NULL pointer dereference flaw was found in the GnuTLS software in _gnutls_figure_common_ciphersuit"
               },
               "fullDescription": {
                 "text": "A NULL pointer dereference flaw was found in the GnuTLS software in _gnutls_figure_common_ciphersuite()."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-6395",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-6395"
+              }
             },
             {
               "id": "CVE-2024-26462",
@@ -198,179 +198,179 @@
               "fullDescription": {
                 "text": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/kdc/ndr.c."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-26462",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-26462"
+              }
             },
             {
               "id": "CVE-2025-24528",
               "shortDescription": {
-                "text": "A flaw was found in krb5. With incremental propagation enabled, an authenticated attacker can cause kadmind to write bey"
+                "text": "A flaw was found in krb5. With incremental propagation enabled, an authenticated attacker can cause "
               },
               "fullDescription": {
                 "text": "A flaw was found in krb5. With incremental propagation enabled, an authenticated attacker can cause kadmind to write beyond the end of the mapped region for the iprop log file. This issue can trigger a process crash and lead to a denial of service."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-24528",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-24528"
+              }
             },
             {
               "id": "CVE-2025-3576",
               "shortDescription": {
-                "text": "A vulnerability in the MIT Kerberos implementation allows GSSAPI-protected messages using RC4-HMAC-MD5 to be spoofed due"
+                "text": "A vulnerability in the MIT Kerberos implementation allows GSSAPI-protected messages using RC4-HMAC-M"
               },
               "fullDescription": {
                 "text": "A vulnerability in the MIT Kerberos implementation allows GSSAPI-protected messages using RC4-HMAC-MD5 to be spoofed due to weaknesses in the MD5 checksum design. If RC4 is preferred over stronger encryption types, an attacker could exploit MD5 collisions to forge message integrity codes. This may lead to unauthorized message tampering."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-3576",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-3576"
+              }
             },
             {
               "id": "CVE-2025-31115",
               "shortDescription": {
-                "text": "XZ Utils provide a general-purpose data-compression library plus command-line tools. In XZ Utils 5.3.3alpha to 5.8.0, th"
+                "text": "XZ Utils provide a general-purpose data-compression library plus command-line tools. In XZ Utils 5.3"
               },
               "fullDescription": {
                 "text": "XZ Utils provide a general-purpose data-compression library plus command-line tools. In XZ Utils 5.3.3alpha to 5.8.0, the multithreaded .xz decoder in liblzma has a bug where invalid input can at least result in a crash. The effects include heap use after free and writing to an address based on the null pointer plus an offset. Applications and libraries that use the lzma_stream_decoder_mt function are affected. The bug has been fixed in XZ Utils 5.8.1, and the fix has been committed to the v5.4, v5.6, v5.8, and master branches in the xz Git repository. No new release packages will be made from the old stable branches, but a standalone patch is available that applies to all affected releases."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-31115",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-31115"
+              }
             },
             {
               "id": "CVE-2025-6965",
               "shortDescription": {
-                "text": "There exists a vulnerability in SQLite versions before 3.50.2 where the number of aggregate terms could exceed the numbe"
+                "text": "There exists a vulnerability in SQLite versions before 3.50.2 where the number of aggregate terms co"
               },
               "fullDescription": {
                 "text": "There exists a vulnerability in SQLite versions before 3.50.2 where the number of aggregate terms could exceed the number of columns available. This could lead to a memory corruption issue. We recommend upgrading to version 3.50.2 or above."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-6965",
               "properties": {
-                "security-severity": "CRITICAL",
+                "security-severity": "9.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-6965"
+              }
             },
             {
               "id": "CVE-2023-7104",
               "shortDescription": {
-                "text": "A vulnerability was found in SQLite SQLite3 up to 3.43.0 and classified as critical. This issue affects the function ses"
+                "text": "A vulnerability was found in SQLite SQLite3 up to 3.43.0 and classified as critical. This issue affe"
               },
               "fullDescription": {
                 "text": "A vulnerability was found in SQLite SQLite3 up to 3.43.0 and classified as critical. This issue affects the function sessionReadRecord of the file ext/session/sqlite3session.c of the component make alltest Handler. The manipulation leads to heap-based buffer overflow. It is recommended to apply a patch to fix this issue. The associated identifier of this vulnerability is VDB-248999."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-7104",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-7104"
+              }
             },
             {
               "id": "CVE-2024-13176",
               "shortDescription": {
-                "text": "Issue summary: A timing side-channel which could potentially allow recovering\nthe private key exists in the ECDSA signat"
+                "text": "Issue summary: A timing side-channel which could potentially allow recovering\nthe private key exists"
               },
               "fullDescription": {
                 "text": "Issue summary: A timing side-channel which could potentially allow recovering\nthe private key exists in the ECDSA signature computation.\n\nImpact summary: A timing side-channel in ECDSA signature computations\ncould allow recovering the private key by an attacker. However, measuring\nthe timing would require either local access to the signing application or\na very fast network connection with low latency.\n\nThere is a timing signal of around 300 nanoseconds when the top word of\nthe inverted ECDSA nonce value is zero. This can happen with significant\nprobability only for some of the supported elliptic curves. In particular\nthe NIST P-521 curve is affected. To be able to measure this leak, the attacker\nprocess must either be located in the same physical computer or must\nhave a very fast network connection with low latency. For that reason\nthe severity of this vulnerability is Low.\n\nThe FIPS modules in 3.4, 3.3, 3.2, 3.1 and 3.0 are affected by this issue."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-13176",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-13176"
+              }
             },
             {
               "id": "CVE-2024-5535",
               "shortDescription": {
-                "text": "Issue summary: Calling the OpenSSL API function SSL_select_next_proto with an\nempty supported client protocols buffer ma"
+                "text": "Issue summary: Calling the OpenSSL API function SSL_select_next_proto with an\nempty supported client"
               },
               "fullDescription": {
                 "text": "Issue summary: Calling the OpenSSL API function SSL_select_next_proto with an\nempty supported client protocols buffer may cause a crash or memory contents to\nbe sent to the peer.\n\nImpact summary: A buffer overread can have a range of potential consequences\nsuch as unexpected application beahviour or a crash. In particular this issue\ncould result in up to 255 bytes of arbitrary private data from memory being sent\nto the peer leading to a loss of confidentiality. However, only applications\nthat directly call the SSL_select_next_proto function with a 0 length list of\nsupported client protocols are affected by this issue. This would normally never\nbe a valid scenario and is typically not under attacker control but may occur by\naccident in the case of a configuration or programming error in the calling\napplication.\n\nThe OpenSSL API function SSL_select_next_proto is typically used by TLS\napplications that support ALPN (Application Layer Protocol Negotiation) or NPN\n(Next Protocol Negotiation). NPN is older, was never standardised and\nis deprecated in favour of ALPN. We believe that ALPN is significantly more\nwidely deployed than NPN. The SSL_select_next_proto function accepts a list of\nprotocols from the server and a list of protocols from the client and returns\nthe first protocol that appears in the server list that also appears in the\nclient list. In the case of no overlap between the two lists it returns the\nfirst item in the client list. In either case it will signal whether an overlap\nbetween the two lists was found. In the case where SSL_select_next_proto is\ncalled with a zero length client list it fails to notice this condition and\nreturns the memory immediately following the client list pointer (and reports\nthat there was no overlap in the lists).\n\nThis function is typically called from a server side application callback for\nALPN or a client side application callback for NPN. In the case of ALPN the list\nof protocols supplied by the client is guaranteed by libssl to never be zero in\nlength. The list of server protocols comes from the application and should never\nnormally be expected to be of zero length. In this case if the\nSSL_select_next_proto function has been called as expected (with the list\nsupplied by the client passed in the client/client_len parameters), then the\napplication will not be vulnerable to this issue. If the application has\naccidentally been configured with a zero length server list, and has\naccidentally passed that zero length server list in the client/client_len\nparameters, and has additionally failed to correctly handle a \"no overlap\"\nresponse (which would normally result in a handshake failure in ALPN) then it\nwill be vulnerable to this problem.\n\nIn the case of NPN, the protocol permits the client to opportunistically select\na protocol when there is no overlap. OpenSSL returns the first client protocol\nin the no overlap case in support of this. The list of client protocols comes\nfrom the application and should never normally be expected to be of zero length.\nHowever if the SSL_select_next_proto function is accidentally called with a\nclient_len of 0 then an invalid memory pointer will be returned instead. If the\napplication uses this output as the opportunistic protocol then the loss of\nconfidentiality will occur.\n\nThis issue has been assessed as Low severity because applications are most\nlikely to be vulnerable if they are using NPN instead of ALPN - but NPN is not\nwidely used. It also requires an application configuration or programming error.\nFinally, this issue would not typically be under attacker control making active\nexploitation unlikely.\n\nThe FIPS modules in 3.3, 3.2, 3.1 and 3.0 are not affected by this issue.\n\nDue to the low severity of this issue we are not issuing new releases of\nOpenSSL at this time. The fix will be included in the next releases when they\nbecome available."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-5535",
               "properties": {
-                "security-severity": "CRITICAL",
+                "security-severity": "9.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-5535"
+              }
             },
             {
               "id": "CVE-2024-9143",
               "shortDescription": {
-                "text": "Issue summary: Use of the low-level GF(2^m) elliptic curve APIs with untrusted\nexplicit values for the field polynomial "
+                "text": "Issue summary: Use of the low-level GF(2^m) elliptic curve APIs with untrusted\nexplicit values for t"
               },
               "fullDescription": {
                 "text": "Issue summary: Use of the low-level GF(2^m) elliptic curve APIs with untrusted\nexplicit values for the field polynomial can lead to out-of-bounds memory reads\nor writes.\n\nImpact summary: Out of bound memory writes can lead to an application crash or\neven a possibility of a remote code execution, however, in all the protocols\ninvolving Elliptic Curve Cryptography that we're aware of, either only \"named\ncurves\" are supported, or, if explicit curve parameters are supported, they\nspecify an X9.62 encoding of binary (GF(2^m)) curves that can't represent\nproblematic input values. Thus the likelihood of existence of a vulnerable\napplication is low.\n\nIn particular, the X9.62 encoding is used for ECC keys in X.509 certificates,\nso problematic inputs cannot occur in the context of processing X.509\ncertificates.  Any problematic use-cases would have to be using an \"exotic\"\ncurve encoding.\n\nThe affected APIs include: EC_GROUP_new_curve_GF2m(), EC_GROUP_new_from_params(),\nand various supporting BN_GF2m_*() functions.\n\nApplications working with \"exotic\" explicit binary (GF(2^m)) curve parameters,\nthat make it possible to represent invalid field polynomials with a zero\nconstant term, via the above or similar APIs, may terminate abruptly as a\nresult of reading or writing outside of array bounds.  Remote code execution\ncannot easily be ruled out.\n\nThe FIPS modules in 3.3, 3.2, 3.1 and 3.0 are not affected by this issue."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-9143",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-9143"
+              }
             },
             {
               "id": "CVE-2025-4598",
               "shortDescription": {
-                "text": "A vulnerability was found in systemd-coredump. This flaw allows an attacker to force a SUID process to crash and replace"
+                "text": "A vulnerability was found in systemd-coredump. This flaw allows an attacker to force a SUID process "
               },
               "fullDescription": {
                 "text": "A vulnerability was found in systemd-coredump. This flaw allows an attacker to force a SUID process to crash and replace it with a non-SUID binary to access the original's privileged process coredump, allowing the attacker to read sensitive data, such as /etc/shadow content, loaded by the original process.\n\nA SUID binary or process has a special type of permission, which allows the process to run with the file owner's permissions, regardless of the user executing the binary. This allows the process to access more restricted data than unprivileged users or processes would be able to. An attacker can leverage this flaw by forcing a SUID process to crash and force the Linux kernel to recycle the process PID before systemd-coredump can analyze the /proc/pid/auxv file. If the attacker wins the race condition, they gain access to the original's SUID process coredump file. They can read sensitive content loaded into memory by the original binary, affecting data confidentiality."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-4598",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-4598"
+              }
             },
             {
               "id": "CVE-2024-12133",
               "shortDescription": {
-                "text": "A flaw in libtasn1 causes inefficient handling of specific certificate data. When processing a large number of elements "
+                "text": "A flaw in libtasn1 causes inefficient handling of specific certificate data. When processing a large"
               },
               "fullDescription": {
                 "text": "A flaw in libtasn1 causes inefficient handling of specific certificate data. When processing a large number of elements in a certificate, libtasn1 takes much longer than expected, which can slow down or even crash the system. This flaw allows an attacker to send a specially crafted certificate, causing a denial of service attack."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-12133",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-12133"
+              }
             },
             {
               "id": "CVE-2023-4641",
               "shortDescription": {
-                "text": "A flaw was found in shadow-utils. When asking for a new password, shadow-utils asks the password twice. If the password "
+                "text": "A flaw was found in shadow-utils. When asking for a new password, shadow-utils asks the password twi"
               },
               "fullDescription": {
                 "text": "A flaw was found in shadow-utils. When asking for a new password, shadow-utils asks the password twice. If the password fails on the second attempt, shadow-utils fails in cleaning the buffer used to store the first entry. This may allow an attacker with enough access to retrieve the password from the memory."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-4641",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-4641"
+              }
             },
             {
               "id": "CVE-2023-29383",
               "shortDescription": {
-                "text": "In Shadow 4.13, it is possible to inject control characters into fields provided to the SUID program chfn (change finger"
+                "text": "In Shadow 4.13, it is possible to inject control characters into fields provided to the SUID program"
               },
               "fullDescription": {
                 "text": "In Shadow 4.13, it is possible to inject control characters into fields provided to the SUID program chfn (change finger). Although it is not possible to exploit this directly (e.g., adding a new user fails because \\n is in the block list), it is possible to misrepresent the /etc/passwd file when viewed. Use of \\r manipulations and Unicode characters to work around blocking of the : character make it possible to give the impression that a new user has been added. In other words, an adversary may be able to convince a system administrator to take the system offline (an indirect, social-engineered denial of service) by demonstrating that \"cat /etc/passwd\" shows a rogue user account."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-29383",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-29383"
+              }
             },
             {
               "id": "CVE-2023-31484",
@@ -380,109 +380,109 @@
               "fullDescription": {
                 "text": "CPAN.pm before 2.35 does not verify TLS certificates when downloading distributions over HTTPS."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-31484",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-31484"
+              }
             },
             {
               "id": "CVE-2024-56406",
               "shortDescription": {
-                "text": "A heap buffer overflow vulnerability was discovered in Perl. \n\nRelease branches 5.34, 5.36, 5.38 and 5.40 are affected, "
+                "text": "A heap buffer overflow vulnerability was discovered in Perl. \n\nRelease branches 5.34, 5.36, 5.38 and"
               },
               "fullDescription": {
                 "text": "A heap buffer overflow vulnerability was discovered in Perl. \n\nRelease branches 5.34, 5.36, 5.38 and 5.40 are affected, including development versions from 5.33.1 through 5.41.10.\n\nWhen there are non-ASCII bytes in the left-hand-side of the `tr` operator, `S_do_trans_invmap` can overflow the destination pointer `d`.\n\n\u00a0 \u00a0$ perl -e '$_ = \"\\x{FF}\" x 1000000; tr/\\xFF/\\x{100}/;' \n\u00a0 \u00a0Segmentation fault (core dumped)\n\nIt is believed that this vulnerability can enable Denial of Service and possibly Code Execution attacks on platforms that lack sufficient defenses."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-56406",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-56406"
+              }
             },
             {
               "id": "CVE-2025-40909",
               "shortDescription": {
-                "text": "Perl threads have a working directory race condition where file operations may target unintended paths.\n\nIf a directory "
+                "text": "Perl threads have a working directory race condition where file operations may target unintended pat"
               },
               "fullDescription": {
                 "text": "Perl threads have a working directory race condition where file operations may target unintended paths.\n\nIf a directory handle is open at thread creation, the process-wide current working directory is temporarily changed in order to clone\u00a0that handle for the new thread, which is visible from any third (or\u00a0more) thread already running. \n\nThis may lead to unintended operations\u00a0such as loading code or accessing files from unexpected locations,\u00a0which a local attacker may be able to exploit.\n\nThe bug was introduced in commit\u00a011a11ecf4bea72b17d250cfb43c897be1341861e and released in Perl version 5.13.6"
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-40909",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype, trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-40909"
+              }
             },
             {
               "id": "CVE-2023-30861",
               "shortDescription": {
-                "text": "Flask is a lightweight WSGI web application framework. When all of the following conditions are met, a response containi"
+                "text": "Flask is a lightweight WSGI web application framework. When all of the following conditions are met,"
               },
               "fullDescription": {
                 "text": "Flask is a lightweight WSGI web application framework. When all of the following conditions are met, a response containing data intended for one client may be cached and subsequently sent by the proxy to other clients. If the proxy also caches `Set-Cookie` headers, it may send one client's `session` cookie to other clients. The severity depends on the application's use of the session and the proxy's behavior regarding cookies. The risk depends on all these conditions being met.\n\n1. The application must be hosted behind a caching proxy that does not strip cookies or ignore responses with cookies.\n2. The application sets `session.permanent = True`\n3. The application does not access or modify the session at any point during a request.\n4. `SESSION_REFRESH_EACH_REQUEST` enabled (the default).\n5. The application does not set a `Cache-Control` header to indicate that a page is private or should not be cached.\n\nThis happens because vulnerable versions of Flask only set the `Vary: Cookie` header when the session is accessed or modified, not when it is refreshed (re-sent to update the expiration) without being accessed or modified. This issue has been fixed in versions 2.3.2 and 2.2.5."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-30861",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-30861"
+              }
             },
             {
               "id": "CVE-2023-5752",
               "shortDescription": {
-                "text": "When installing a package from a Mercurial VCS URL  (ie \"pip install \nhg+...\") with pip prior to v23.3, the specified Me"
+                "text": "When installing a package from a Mercurial VCS URL  (ie \"pip install \nhg+...\") with pip prior to v23"
               },
               "fullDescription": {
                 "text": "When installing a package from a Mercurial VCS URL  (ie \"pip install \nhg+...\") with pip prior to v23.3, the specified Mercurial revision could\n be used to inject arbitrary configuration options to the \"hg clone\" \ncall (ie \"--config\"). Controlling the Mercurial configuration can modify\n how and which repository is installed. This vulnerability does not \naffect users who aren't installing from Mercurial."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-5752",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-5752"
+              }
             },
             {
               "id": "CVE-2022-40897",
               "shortDescription": {
-                "text": "Python Packaging Authority (PyPA) setuptools before 65.5.1 allows remote attackers to cause a denial of service via HTML"
+                "text": "Python Packaging Authority (PyPA) setuptools before 65.5.1 allows remote attackers to cause a denial"
               },
               "fullDescription": {
                 "text": "Python Packaging Authority (PyPA) setuptools before 65.5.1 allows remote attackers to cause a denial of service via HTML in a crafted package or custom PackageIndex page. There is a Regular Expression Denial of Service (ReDoS) in package_index.py."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2022-40897",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2022-40897"
+              }
             },
             {
               "id": "CVE-2024-6345",
               "shortDescription": {
-                "text": "A vulnerability in the package_index module of pypa/setuptools versions up to 69.1.1 allows for remote code execution vi"
+                "text": "A vulnerability in the package_index module of pypa/setuptools versions up to 69.1.1 allows for remo"
               },
               "fullDescription": {
                 "text": "A vulnerability in the package_index module of pypa/setuptools versions up to 69.1.1 allows for remote code execution via its download functions. These functions, which are used to download packages from URLs provided by users or retrieved from package index servers, are susceptible to code injection. If these functions are exposed to user-controlled inputs, such as package URLs, they can execute arbitrary commands on the system. The issue is fixed in version 70.0."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-6345",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-6345"
+              }
             },
             {
               "id": "CVE-2025-47273",
               "shortDescription": {
-                "text": "setuptools is a package that allows users to download, build, install, upgrade, and uninstall Python packages. A path tr"
+                "text": "setuptools is a package that allows users to download, build, install, upgrade, and uninstall Python"
               },
               "fullDescription": {
                 "text": "setuptools is a package that allows users to download, build, install, upgrade, and uninstall Python packages. A path traversal vulnerability in `PackageIndex` is present in setuptools prior to version 78.1.1. An attacker would be allowed to write files to arbitrary locations on the filesystem with the permissions of the process running the Python code, which could escalate to remote code execution depending on the context. Version 78.1.1 fixes the issue."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-47273",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "trivy"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-47273"
+              }
             },
             {
               "id": "GHSA-cx63-2mw6-8hw5",
@@ -492,38 +492,39 @@
               "fullDescription": {
                 "text": "setuptools vulnerable to Command Injection via package URL"
               },
+              "helpUri": "https://nvd.nist.gov/",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype"
               }
             },
             {
               "id": "CVE-2024-56433",
               "shortDescription": {
-                "text": "shadow-utils (aka shadow) 4.4 through 4.17.0 establishes a default /etc/subuid behavior (e.g., uid 100000 through 165535"
+                "text": "shadow-utils (aka shadow) 4.4 through 4.17.0 establishes a default /etc/subuid behavior (e.g., uid 1"
               },
               "fullDescription": {
                 "text": "shadow-utils (aka shadow) 4.4 through 4.17.0 establishes a default /etc/subuid behavior (e.g., uid 100000 through 165535 for the first user account) that can realistically conflict with the uids of users defined on locally administered networks, potentially leading to account takeover, e.g., by leveraging newuidmap for access to an NFS home directory (or same-host resources in the case of remote logins by these local network users). NOTE: it may also be argued that system administrators should not have assigned uids, within local networks, that are within the range that can occur in /etc/subuid."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-56433",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-56433"
+              }
             },
             {
               "id": "CVE-2025-0938",
               "shortDescription": {
-                "text": "The Python standard library functions `urllib.parse.urlsplit` and `urlparse` accepted domain names that included square "
+                "text": "The Python standard library functions `urllib.parse.urlsplit` and `urlparse` accepted domain names t"
               },
               "fullDescription": {
                 "text": "The Python standard library functions `urllib.parse.urlsplit` and `urlparse` accepted domain names that included square brackets which isn't valid according to RFC 3986. Square brackets are only meant to be used as delimiters for specifying IPv6 and IPvFuture hosts in URLs. This could result in differential parsing across the Python URL parser and other specification-compliant URL parsers."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-0938",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-0938"
+              }
             },
             {
               "id": "GHSA-r9hx-vwmv-q579",
@@ -533,386 +534,389 @@
               "fullDescription": {
                 "text": "pypa/setuptools vulnerable to Regular Expression Denial of Service (ReDoS)"
               },
+              "helpUri": "https://nvd.nist.gov/",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype"
               }
             },
             {
               "id": "CVE-2011-3389",
               "shortDescription": {
-                "text": "The SSL protocol, as used in certain configurations in Microsoft Windows and Microsoft Internet Explorer, Mozilla Firefo"
+                "text": "The SSL protocol, as used in certain configurations in Microsoft Windows and Microsoft Internet Expl"
               },
               "fullDescription": {
                 "text": "The SSL protocol, as used in certain configurations in Microsoft Windows and Microsoft Internet Explorer, Mozilla Firefox, Google Chrome, Opera, and other products, encrypts data by using CBC mode with chained initialization vectors, which allows man-in-the-middle attackers to obtain plaintext HTTP headers via a blockwise chosen-boundary attack (BCBA) on an HTTPS session, in conjunction with JavaScript code that uses (1) the HTML5 WebSocket API, (2) the Java URLConnection API, or (3) the Silverlight WebClient API, aka a \"BEAST\" attack."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2011-3389",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2011-3389"
+              }
             },
             {
               "id": "CVE-2024-11168",
               "shortDescription": {
-                "text": "The urllib.parse.urlsplit() and urlparse() functions improperly validated bracketed hosts (`[]`), allowing hosts that we"
+                "text": "The urllib.parse.urlsplit() and urlparse() functions improperly validated bracketed hosts (`[]`), al"
               },
               "fullDescription": {
                 "text": "The urllib.parse.urlsplit() and urlparse() functions improperly validated bracketed hosts (`[]`), allowing hosts that weren't IPv6 or IPvFuture. This behavior was not conformant to RFC 3986 and potentially enabled SSRF if a URL is processed by more than one URL parser."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-11168",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-11168"
+              }
             },
             {
               "id": "CVE-2005-2541",
               "shortDescription": {
-                "text": "Tar 1.15.1 does not properly warn the user when extracting setuid or setgid files, which may allow local users or remote"
+                "text": "Tar 1.15.1 does not properly warn the user when extracting setuid or setgid files, which may allow l"
               },
               "fullDescription": {
                 "text": "Tar 1.15.1 does not properly warn the user when extracting setuid or setgid files, which may allow local users or remote attackers to gain privileges."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2005-2541",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2005-2541"
+              }
             },
             {
               "id": "GHSA-m2qf-hxjv-5gpq",
               "shortDescription": {
-                "text": "Flask vulnerable to possible disclosure of permanent session cookie due to missing Vary: Cookie header"
+                "text": "Flask vulnerable to possible disclosure of permanent session cookie due to missing Vary: Cookie head"
               },
               "fullDescription": {
                 "text": "Flask vulnerable to possible disclosure of permanent session cookie due to missing Vary: Cookie header"
               },
+              "helpUri": "https://nvd.nist.gov/",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype"
               }
             },
             {
               "id": "CVE-2025-4517",
               "shortDescription": {
-                "text": "Allows arbitrary filesystem writes outside the extraction directory during extraction with filter=\"data\".\n\n\nYou are affe"
+                "text": "Allows arbitrary filesystem writes outside the extraction directory during extraction with filter=\"d"
               },
               "fullDescription": {
                 "text": "Allows arbitrary filesystem writes outside the extraction directory during extraction with filter=\"data\".\n\n\nYou are affected by this vulnerability if using the tarfile\u00a0module to extract untrusted tar archives using TarFile.extractall()\u00a0or TarFile.extract()\u00a0using the filter=\u00a0parameter with a value of \"data\"\u00a0or \"tar\". See the tarfile  extraction filters documentation https://docs.python.org/3/library/tarfile.html#tarfile-extraction-filter \u00a0for more information.\n\nNote that for Python 3.14 or later the default value of filter=\u00a0changed from \"no filtering\" to `\"data\", so if you are relying on this new default behavior then your usage is also affected.\n\nNote that none of these vulnerabilities significantly affect the installation of source distributions which are tar archives as source distributions already allow arbitrary code execution during the build process. However when evaluating source distributions it's important to avoid installing source distributions with suspicious links."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-4517",
               "properties": {
-                "security-severity": "CRITICAL",
+                "security-severity": "9.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-4517"
+              }
             },
             {
               "id": "GHSA-5rjg-fvgr-3xxf",
               "shortDescription": {
-                "text": "setuptools has a path traversal vulnerability in PackageIndex.download that leads to Arbitrary File Write"
+                "text": "setuptools has a path traversal vulnerability in PackageIndex.download that leads to Arbitrary File "
               },
               "fullDescription": {
                 "text": "setuptools has a path traversal vulnerability in PackageIndex.download that leads to Arbitrary File Write"
               },
+              "helpUri": "https://nvd.nist.gov/",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype"
               }
             },
             {
               "id": "CVE-2025-4330",
               "shortDescription": {
-                "text": "Allows the extraction filter to be ignored, allowing symlink targets to point outside the destination directory, and the"
+                "text": "Allows the extraction filter to be ignored, allowing symlink targets to point outside the destinatio"
               },
               "fullDescription": {
                 "text": "Allows the extraction filter to be ignored, allowing symlink targets to point outside the destination directory, and the modification of some file metadata.\n\n\nYou are affected by this vulnerability if using the tarfile\u00a0module to extract untrusted tar archives using TarFile.extractall()\u00a0or TarFile.extract()\u00a0using the filter=\u00a0parameter with a value of \"data\"\u00a0or \"tar\". See the tarfile  extraction filters documentation https://docs.python.org/3/library/tarfile.html#tarfile-extraction-filter \u00a0for more information.\n\nNote that for Python 3.14 or later the default value of filter=\u00a0changed from \"no filtering\" to `\"data\", so if you are relying on this new default behavior then your usage is also affected.\n\nNote that none of these vulnerabilities significantly affect the installation of source distributions which are tar archives as source distributions already allow arbitrary code execution during the build process. However when evaluating source distributions it's important to avoid installing source distributions with suspicious links."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-4330",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-4330"
+              }
             },
             {
               "id": "CVE-2018-20796",
               "shortDescription": {
-                "text": "In the GNU C Library (aka glibc or libc6) through 2.29, check_dst_limits_calc_pos_1 in posix/regexec.c has Uncontrolled "
+                "text": "In the GNU C Library (aka glibc or libc6) through 2.29, check_dst_limits_calc_pos_1 in posix/regexec"
               },
               "fullDescription": {
                 "text": "In the GNU C Library (aka glibc or libc6) through 2.29, check_dst_limits_calc_pos_1 in posix/regexec.c has Uncontrolled Recursion, as demonstrated by '(\\227|)(\\\\1\\\\1|t1|\\\\\\2537)+' in grep."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2018-20796",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2018-20796"
+              }
             },
             {
               "id": "CVE-2011-3374",
               "shortDescription": {
-                "text": "It was found that apt-key in apt, all versions, do not correctly validate gpg keys with the master keyring, leading to a"
+                "text": "It was found that apt-key in apt, all versions, do not correctly validate gpg keys with the master k"
               },
               "fullDescription": {
                 "text": "It was found that apt-key in apt, all versions, do not correctly validate gpg keys with the master keyring, leading to a potential man-in-the-middle attack."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2011-3374",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2011-3374"
+              }
             },
             {
               "id": "CVE-2025-4138",
               "shortDescription": {
-                "text": "Allows the extraction filter to be ignored, allowing symlink targets to point outside the destination directory, and the"
+                "text": "Allows the extraction filter to be ignored, allowing symlink targets to point outside the destinatio"
               },
               "fullDescription": {
                 "text": "Allows the extraction filter to be ignored, allowing symlink targets to point outside the destination directory, and the modification of some file metadata.\n\n\nYou are affected by this vulnerability if using the tarfile\u00a0module to extract untrusted tar archives using TarFile.extractall()\u00a0or TarFile.extract()\u00a0using the filter=\u00a0parameter with a value of \"data\"\u00a0or \"tar\". See the tarfile  extraction filters documentation https://docs.python.org/3/library/tarfile.html#tarfile-extraction-filter \u00a0for more information.\n\nNote that for Python 3.14 or later the default value of filter=\u00a0changed from \"no filtering\" to `\"data\", so if you are relying on this new default behavior then your usage is also affected.\n\nNote that none of these vulnerabilities significantly affect the installation of source distributions which are tar archives as source distributions already allow arbitrary code execution during the build process. However when evaluating source distributions it's important to avoid installing source distributions with suspicious links."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-4138",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-4138"
+              }
             },
             {
               "id": "CVE-2025-8194",
               "shortDescription": {
-                "text": "There is a defect in the CPython \u201ctarfile\u201d module affecting the \u201cTarFile\u201d extraction and entry enumeration APIs. The tar"
+                "text": "There is a defect in the CPython \u201ctarfile\u201d module affecting the \u201cTarFile\u201d extraction and entry enume"
               },
               "fullDescription": {
                 "text": "There is a defect in the CPython \u201ctarfile\u201d module affecting the \u201cTarFile\u201d extraction and entry enumeration APIs. The tar implementation would process tar archives with negative offsets without error, resulting in an infinite loop and deadlock during the parsing of maliciously crafted tar archives. \n\nThis vulnerability can be mitigated by including the following patch after importing the \u201ctarfile\u201d module:\u00a0 https://gist.github.com/sethmlarson/1716ac5b82b73dbcbf23ad2eff8b33e1"
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-8194",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-8194"
+              }
             },
             {
               "id": "CVE-2025-6297",
               "shortDescription": {
-                "text": "It was discovered that dpkg-deb does not properly sanitize directory permissions when extracting a control member into a"
+                "text": "It was discovered that dpkg-deb does not properly sanitize directory permissions when extracting a c"
               },
               "fullDescription": {
                 "text": "It was discovered that dpkg-deb does not properly sanitize directory permissions when extracting a control member into a temporary directory, which is documented as being a safe operation even on untrusted data. This may result in leaving temporary files behind on cleanup. Given automated and repeated execution of dpkg-deb commands on adversarial .deb packages or with well compressible files, placed inside a directory with permissions not allowing removal by a non-root user, this can end up in a DoS scenario due to causing disk quota exhaustion or disk full conditions."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-6297",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-6297"
+              }
             },
             {
               "id": "CVE-2023-36632",
               "shortDescription": {
-                "text": "The legacy email.utils.parseaddr function in Python through 3.11.4 allows attackers to trigger \"RecursionError: maximum "
+                "text": "The legacy email.utils.parseaddr function in Python through 3.11.4 allows attackers to trigger \"Recu"
               },
               "fullDescription": {
                 "text": "The legacy email.utils.parseaddr function in Python through 3.11.4 allows attackers to trigger \"RecursionError: maximum recursion depth exceeded while calling a Python object\" via a crafted argument. This argument is plausibly an untrusted value from an application's input data that was supposed to contain a name and an e-mail address. NOTE: email.utils.parseaddr is categorized as a Legacy API in the documentation of the Python email package. Applications should instead use the email.parser.BytesParser or email.parser.Parser class. NOTE: the vendor's perspective is that this is neither a vulnerability nor a bug. The email package is intended to have size limits and to throw an exception when limits are exceeded; they were exceeded by the example demonstration code."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-36632",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-36632"
+              }
             },
             {
               "id": "CVE-2024-5642",
               "shortDescription": {
-                "text": "CPython 3.9 and earlier doesn't disallow configuring an empty list (\"[]\") for SSLContext.set_npn_protocols() which is an"
+                "text": "CPython 3.9 and earlier doesn't disallow configuring an empty list (\"[]\") for SSLContext.set_npn_pro"
               },
               "fullDescription": {
                 "text": "CPython 3.9 and earlier doesn't disallow configuring an empty list (\"[]\") for SSLContext.set_npn_protocols() which is an invalid value for the underlying OpenSSL API. This results in a buffer over-read when NPN is used (see CVE-2024-5535 for OpenSSL). This vulnerability is of low severity due to NPN being not widely used and specifying an empty list likely being uncommon in-practice (typically a protocol name would be configured)."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-5642",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-5642"
+              }
             },
             {
               "id": "CVE-2025-4435",
               "shortDescription": {
-                "text": "When using a TarFile.errorlevel = 0\u00a0and extracting with a filter the documented behavior is that any filtered members wo"
+                "text": "When using a TarFile.errorlevel = 0\u00a0and extracting with a filter the documented behavior is that any"
               },
               "fullDescription": {
                 "text": "When using a TarFile.errorlevel = 0\u00a0and extracting with a filter the documented behavior is that any filtered members would be skipped and not extracted. However the actual behavior of TarFile.errorlevel = 0\u00a0in affected versions is that the member would still be extracted and not skipped."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-4435",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-4435"
+              }
             },
             {
               "id": "CVE-2024-12718",
               "shortDescription": {
-                "text": "Allows modifying some file metadata (e.g. last modified) with filter=\"data\"\u00a0or file permissions (chmod) with filter=\"tar"
+                "text": "Allows modifying some file metadata (e.g. last modified) with filter=\"data\"\u00a0or file permissions (chm"
               },
               "fullDescription": {
                 "text": "Allows modifying some file metadata (e.g. last modified) with filter=\"data\"\u00a0or file permissions (chmod) with filter=\"tar\"\u00a0of files outside the extraction directory.\nYou are affected by this vulnerability if using the tarfile\u00a0module to extract untrusted tar archives using TarFile.extractall()\u00a0or TarFile.extract()\u00a0using the filter=\u00a0parameter with a value of \"data\"\u00a0or \"tar\". See the tarfile  extraction filters documentation https://docs.python.org/3/library/tarfile.html#tarfile-extraction-filter \u00a0for more information. Only Python versions 3.12 or later are affected by these vulnerabilities, earlier versions don't include the extraction filter feature.\n\nNote that for Python 3.14 or later the default value of filter=\u00a0changed from \"no filtering\" to `\"data\", so if you are relying on this new default behavior then your usage is also affected.\n\nNote that none of these vulnerabilities significantly affect the installation of source distributions which are tar archives as source distributions already allow arbitrary code execution during the build process. However when evaluating source distributions it's important to avoid installing source distributions with suspicious links."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-12718",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-12718"
+              }
             },
             {
               "id": "CVE-2025-1795",
               "shortDescription": {
-                "text": "During an address list folding when a separating comma ends up on a folded line and that line is to be unicode-encoded t"
+                "text": "During an address list folding when a separating comma ends up on a folded line and that line is to "
               },
               "fullDescription": {
                 "text": "During an address list folding when a separating comma ends up on a folded line and that line is to be unicode-encoded then the separator itself is also unicode-encoded. Expected behavior is that the separating comma remains a plan comma. This can result in the address header being misinterpreted by some mail servers."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-1795",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-1795"
+              }
             },
             {
               "id": "CVE-2025-6069",
               "shortDescription": {
-                "text": "The html.parser.HTMLParser class had worse-case quadratic complexity when processing certain crafted malformed inputs po"
+                "text": "The html.parser.HTMLParser class had worse-case quadratic complexity when processing certain crafted"
               },
               "fullDescription": {
                 "text": "The html.parser.HTMLParser class had worse-case quadratic complexity when processing certain crafted malformed inputs potentially leading to amplified denial-of-service."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-6069",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-6069"
+              }
             },
             {
               "id": "CVE-2024-22365",
               "shortDescription": {
-                "text": "linux-pam (aka Linux PAM) before 1.6.0 allows attackers to cause a denial of service (blocked login process) via mkfifo "
+                "text": "linux-pam (aka Linux PAM) before 1.6.0 allows attackers to cause a denial of service (blocked login "
               },
               "fullDescription": {
                 "text": "linux-pam (aka Linux PAM) before 1.6.0 allows attackers to cause a denial of service (blocked login process) via mkfifo because the openat call (for protect_dir) lacks O_DIRECTORY."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-22365",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-22365"
+              }
             },
             {
               "id": "CVE-2019-1010023",
               "shortDescription": {
-                "text": "GNU Libc current is affected by: Re-mapping current loaded library with malicious ELF file. The impact is: In worst case"
+                "text": "GNU Libc current is affected by: Re-mapping current loaded library with malicious ELF file. The impa"
               },
               "fullDescription": {
                 "text": "GNU Libc current is affected by: Re-mapping current loaded library with malicious ELF file. The impact is: In worst case attacker may evaluate privileges. The component is: libld. The attack vector is: Attacker sends 2 ELF files to victim and asks to run ldd on it. ldd execute code. NOTE: Upstream comments indicate \"this is being treated as a non-security bug and no real threat."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2019-1010023",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2019-1010023"
+              }
             },
             {
               "id": "CVE-2024-9287",
               "shortDescription": {
-                "text": "A vulnerability has been found in the CPython `venv` module and CLI where path names provided when creating a virtual en"
+                "text": "A vulnerability has been found in the CPython `venv` module and CLI where path names provided when c"
               },
               "fullDescription": {
                 "text": "A vulnerability has been found in the CPython `venv` module and CLI where path names provided when creating a virtual environment were not quoted properly, allowing the creator to inject commands into virtual environment \"activation\" scripts (ie \"source venv/bin/activate\"). This means that attacker-controlled virtual environments are able to run commands when the virtual environment is activated. Virtual environments which are not created by an attacker or which aren't activated before being used (ie \"./venv/bin/python\") are not affected."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-9287",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-9287"
+              }
             },
             {
               "id": "CVE-2025-7458",
               "shortDescription": {
-                "text": "An integer overflow in the sqlite3KeyInfoFromExprList function in SQLite versions 3.39.2 through 3.41.1 allows an attack"
+                "text": "An integer overflow in the sqlite3KeyInfoFromExprList function in SQLite versions 3.39.2 through 3.4"
               },
               "fullDescription": {
                 "text": "An integer overflow in the sqlite3KeyInfoFromExprList function in SQLite versions 3.39.2 through 3.41.1 allows an attacker with the ability to execute arbitrary SQL statements to cause a denial of service or disclose sensitive information from process memory via a crafted SELECT statement with a large number of expressions in the ORDER BY clause."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-7458",
               "properties": {
-                "security-severity": "CRITICAL",
+                "security-severity": "9.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-7458"
+              }
             },
             {
               "id": "CVE-2023-50495",
               "shortDescription": {
-                "text": "NCurse v6.4-20230418 was discovered to contain a segmentation fault via the component _nc_wrap_entry()."
+                "text": "NCurse v6.4-20230418 was discovered to contain a segmentation fault via the component _nc_wrap_entry"
               },
               "fullDescription": {
                 "text": "NCurse v6.4-20230418 was discovered to contain a segmentation fault via the component _nc_wrap_entry()."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-50495",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-50495"
+              }
             },
             {
               "id": "CVE-2025-7709",
               "shortDescription": {
-                "text": "An integer overflow exists in the  FTS5 https://sqlite.org/fts5.html \u00a0extension. It occurs when the size of an array of "
+                "text": "An integer overflow exists in the  FTS5 https://sqlite.org/fts5.html \u00a0extension. It occurs when the "
               },
               "fullDescription": {
                 "text": "An integer overflow exists in the  FTS5 https://sqlite.org/fts5.html \u00a0extension. It occurs when the size of an array of tombstone pointers is calculated and truncated into a 32-bit integer. A pointer to partially controlled data can then be written out of bounds."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-7709",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-7709"
+              }
             },
             {
               "id": "CVE-2018-6829",
               "shortDescription": {
-                "text": "cipher/elgamal.c in Libgcrypt through 1.8.2, when used to encrypt messages directly, improperly encodes plaintexts, whic"
+                "text": "cipher/elgamal.c in Libgcrypt through 1.8.2, when used to encrypt messages directly, improperly enco"
               },
               "fullDescription": {
                 "text": "cipher/elgamal.c in Libgcrypt through 1.8.2, when used to encrypt messages directly, improperly encodes plaintexts, which allows attackers to obtain sensitive information by reading ciphertext data (i.e., it does not have semantic security in face of a ciphertext-only attack). The Decisional Diffie-Hellman (DDH) assumption does not hold for Libgcrypt's ElGamal implementation."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2018-6829",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2018-6829"
+              }
             },
             {
               "id": "CVE-2024-28757",
               "shortDescription": {
-                "text": "libexpat through 2.6.1 allows an XML Entity Expansion attack when there is isolated use of external parsers (created via"
+                "text": "libexpat through 2.6.1 allows an XML Entity Expansion attack when there is isolated use of external "
               },
               "fullDescription": {
                 "text": "libexpat through 2.6.1 allows an XML Entity Expansion attack when there is isolated use of external parsers (created via XML_ExternalEntityParserCreate)."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-28757",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-28757"
+              }
             },
             {
               "id": "CVE-2018-5709",
               "shortDescription": {
-                "text": "An issue was discovered in MIT Kerberos 5 (aka krb5) through 1.16. There is a variable \"dbentry->n_key_data\" in kadmin/d"
+                "text": "An issue was discovered in MIT Kerberos 5 (aka krb5) through 1.16. There is a variable \"dbentry->n_k"
               },
               "fullDescription": {
                 "text": "An issue was discovered in MIT Kerberos 5 (aka krb5) through 1.16. There is a variable \"dbentry->n_key_data\" in kadmin/dbutil/dump.c that can store 16-bit data but unknowingly the developer has assigned a \"u4\" variable to it, which is for 32-bit data. An attacker can use this vulnerability to affect other artifacts of the database as we know that a Kerberos database dump file contains trusted data."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2018-5709",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2018-5709"
+              }
             },
             {
               "id": "GHSA-mq26-g339-26xf",
@@ -922,178 +926,179 @@
               "fullDescription": {
                 "text": "Command Injection in pip when used with Mercurial"
               },
+              "helpUri": "https://nvd.nist.gov/",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype"
               }
             },
             {
               "id": "CVE-2023-31486",
               "shortDescription": {
-                "text": "HTTP::Tiny before 0.083, a Perl core module since 5.13.9 and available standalone on CPAN, has an insecure default TLS c"
+                "text": "HTTP::Tiny before 0.083, a Perl core module since 5.13.9 and available standalone on CPAN, has an in"
               },
               "fullDescription": {
                 "text": "HTTP::Tiny before 0.083, a Perl core module since 5.13.9 and available standalone on CPAN, has an insecure default TLS configuration where users must opt in to verify certificates."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-31486",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-31486"
+              }
             },
             {
               "id": "CVE-2025-6020",
               "shortDescription": {
-                "text": "A flaw was found in linux-pam. The module pam_namespace may use access user-controlled paths without proper protection, "
+                "text": "A flaw was found in linux-pam. The module pam_namespace may use access user-controlled paths without"
               },
               "fullDescription": {
                 "text": "A flaw was found in linux-pam. The module pam_namespace may use access user-controlled paths without proper protection, allowing local users to elevate their privileges to root via multiple symlink attacks and race conditions."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-6020",
               "properties": {
-                "security-severity": "HIGH",
+                "security-severity": "7.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-6020"
+              }
             },
             {
               "id": "CVE-2016-2781",
               "shortDescription": {
-                "text": "chroot in GNU coreutils, when used with --userspec, allows local users to escape to the parent session via a crafted TIO"
+                "text": "chroot in GNU coreutils, when used with --userspec, allows local users to escape to the parent sessi"
               },
               "fullDescription": {
                 "text": "chroot in GNU coreutils, when used with --userspec, allows local users to escape to the parent session via a crafted TIOCSTI ioctl call, which pushes characters to the terminal's input buffer."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2016-2781",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2016-2781"
+              }
             },
             {
               "id": "CVE-2019-1010024",
               "shortDescription": {
-                "text": "GNU Libc current is affected by: Mitigation bypass. The impact is: Attacker may bypass ASLR using cache of thread stack "
+                "text": "GNU Libc current is affected by: Mitigation bypass. The impact is: Attacker may bypass ASLR using ca"
               },
               "fullDescription": {
                 "text": "GNU Libc current is affected by: Mitigation bypass. The impact is: Attacker may bypass ASLR using cache of thread stack and heap. The component is: glibc. NOTE: Upstream comments indicate \"this is being treated as a non-security bug and no real threat."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2019-1010024",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2019-1010024"
+              }
             },
             {
               "id": "CVE-2010-4756",
               "shortDescription": {
-                "text": "The glob implementation in the GNU C Library (aka glibc or libc6) allows remote authenticated users to cause a denial of"
+                "text": "The glob implementation in the GNU C Library (aka glibc or libc6) allows remote authenticated users "
               },
               "fullDescription": {
                 "text": "The glob implementation in the GNU C Library (aka glibc or libc6) allows remote authenticated users to cause a denial of service (CPU and memory consumption) via crafted glob expressions that do not match any pathnames, as demonstrated by glob expressions in STAT commands to an FTP daemon, a different vulnerability than CVE-2010-2632."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2010-4756",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2010-4756"
+              }
             },
             {
               "id": "CVE-2007-5686",
               "shortDescription": {
-                "text": "initscripts in rPath Linux 1 sets insecure permissions for the /var/log/btmp file, which allows local users to obtain se"
+                "text": "initscripts in rPath Linux 1 sets insecure permissions for the /var/log/btmp file, which allows loca"
               },
               "fullDescription": {
                 "text": "initscripts in rPath Linux 1 sets insecure permissions for the /var/log/btmp file, which allows local users to obtain sensitive information regarding authentication attempts.  NOTE: because sshd detects the insecure permissions and does not log certain events, this also prevents sshd from logging failed authentication attempts by remote attackers."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2007-5686",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2007-5686"
+              }
             },
             {
               "id": "CVE-2019-9192",
               "shortDescription": {
-                "text": "In the GNU C Library (aka glibc or libc6) through 2.29, check_dst_limits_calc_pos_1 in posix/regexec.c has Uncontrolled "
+                "text": "In the GNU C Library (aka glibc or libc6) through 2.29, check_dst_limits_calc_pos_1 in posix/regexec"
               },
               "fullDescription": {
                 "text": "In the GNU C Library (aka glibc or libc6) through 2.29, check_dst_limits_calc_pos_1 in posix/regexec.c has Uncontrolled Recursion, as demonstrated by '(|)(\\\\1\\\\1)*' in grep, a different issue than CVE-2018-20796. NOTE: the software maintainer disputes that this is a vulnerability because the behavior occurs only with a crafted pattern"
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2019-9192",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2019-9192"
+              }
             },
             {
               "id": "CVE-2024-10041",
               "shortDescription": {
-                "text": "A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can trigger the victim "
+                "text": "A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can"
               },
               "fullDescription": {
                 "text": "A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can trigger the victim program to execute by sending characters to its standard input (stdin). As this occurs, the attacker can train the branch predictor to execute an ROP chain speculatively. This flaw could result in leaked passwords, such as those found in /etc/shadow while performing authentications."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-10041",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-10041"
+              }
             },
             {
               "id": "CVE-2024-2236",
               "shortDescription": {
-                "text": "A timing-based side-channel flaw was found in libgcrypt's RSA implementation. This issue may allow a remote attacker to "
+                "text": "A timing-based side-channel flaw was found in libgcrypt's RSA implementation. This issue may allow a"
               },
               "fullDescription": {
                 "text": "A timing-based side-channel flaw was found in libgcrypt's RSA implementation. This issue may allow a remote attacker to initiate a Bleichenbacher-style attack, which can lead to the decryption of RSA ciphertexts."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-2236",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-2236"
+              }
             },
             {
               "id": "CVE-2025-4516",
               "shortDescription": {
-                "text": "There is an issue in CPython when using `bytes.decode(\"unicode_escape\", error=\"ignore|replace\")`. If you are not using t"
+                "text": "There is an issue in CPython when using `bytes.decode(\"unicode_escape\", error=\"ignore|replace\")`. If"
               },
               "fullDescription": {
                 "text": "There is an issue in CPython when using `bytes.decode(\"unicode_escape\", error=\"ignore|replace\")`. If you are not using the \"unicode_escape\" encoding or an error handler your usage is not affected. To work-around this issue you may stop using the error= handler and instead wrap the bytes.decode() call in a try-except catching the DecodeError."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-4516",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-4516"
+              }
             },
             {
               "id": "CVE-2021-45346",
               "shortDescription": {
-                "text": "A Memory Leak vulnerability exists in SQLite Project SQLite3 3.35.1 and 3.37.0 via maliciously crafted SQL Queries (made"
+                "text": "A Memory Leak vulnerability exists in SQLite Project SQLite3 3.35.1 and 3.37.0 via maliciously craft"
               },
               "fullDescription": {
                 "text": "A Memory Leak vulnerability exists in SQLite Project SQLite3 3.35.1 and 3.37.0 via maliciously crafted SQL Queries (made via editing the Database File), it is possible to query a record, and leak subsequent bytes of memory that extend beyond the record, which could let a malicious user obtain sensitive information. NOTE: The developer disputes this as a vulnerability stating that If you give SQLite a corrupted database file and submit a query against the database, it might read parts of the database that you did not intend or expect."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2021-45346",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2021-45346"
+              }
             },
             {
               "id": "CVE-2019-1010025",
               "shortDescription": {
-                "text": "GNU Libc current is affected by: Mitigation bypass. The impact is: Attacker may guess the heap addresses of pthread_crea"
+                "text": "GNU Libc current is affected by: Mitigation bypass. The impact is: Attacker may guess the heap addre"
               },
               "fullDescription": {
                 "text": "GNU Libc current is affected by: Mitigation bypass. The impact is: Attacker may guess the heap addresses of pthread_created thread. The component is: glibc. NOTE: the vendor's position is \"ASLR bypass itself is not a vulnerability."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2019-1010025",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2019-1010025"
+              }
             },
             {
               "id": "CVE-2024-26458",
@@ -1103,11 +1108,11 @@
               "fullDescription": {
                 "text": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak in /krb5/src/lib/rpc/pmap_rmt.c."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-26458",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-26458"
+              }
             },
             {
               "id": "CVE-2011-4116",
@@ -1117,242 +1122,242 @@
               "fullDescription": {
                 "text": "_is_safe in the File::Temp module for Perl does not properly handle symlinks."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2011-4116",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2011-4116"
+              }
             },
             {
               "id": "CVE-2025-29088",
               "shortDescription": {
-                "text": "In SQLite 3.49.0 before 3.49.1, certain argument values to sqlite3_db_config (in the C-language API) can cause a denial "
+                "text": "In SQLite 3.49.0 before 3.49.1, certain argument values to sqlite3_db_config (in the C-language API)"
               },
               "fullDescription": {
                 "text": "In SQLite 3.49.0 before 3.49.1, certain argument values to sqlite3_db_config (in the C-language API) can cause a denial of service (application crash). An sz*nBig multiplication is not cast to a 64-bit integer, and consequently some memory allocations may be incorrect."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-29088",
               "properties": {
-                "security-severity": "MEDIUM",
+                "security-severity": "5.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-29088"
+              }
             },
             {
               "id": "CVE-2019-1010022",
               "shortDescription": {
-                "text": "GNU Libc current is affected by: Mitigation bypass. The impact is: Attacker may bypass stack guard protection. The compo"
+                "text": "GNU Libc current is affected by: Mitigation bypass. The impact is: Attacker may bypass stack guard p"
               },
               "fullDescription": {
                 "text": "GNU Libc current is affected by: Mitigation bypass. The impact is: Attacker may bypass stack guard protection. The component is: nptl. The attack vector is: Exploit stack buffer overflow vulnerability and use this bypass vulnerability to bypass stack guard. NOTE: Upstream comments indicate \"this is being treated as a non-security bug and no real threat."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2019-1010022",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2019-1010022"
+              }
             },
             {
               "id": "CVE-2023-31437",
               "shortDescription": {
-                "text": "An issue was discovered in systemd 253. An attacker can modify a sealed log file such that, in some views, not all exist"
+                "text": "An issue was discovered in systemd 253. An attacker can modify a sealed log file such that, in some "
               },
               "fullDescription": {
                 "text": "An issue was discovered in systemd 253. An attacker can modify a sealed log file such that, in some views, not all existing and sealed log messages are displayed. NOTE: the vendor reportedly sent \"a reply denying that any of the finding was a security vulnerability.\""
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-31437",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-31437"
+              }
             },
             {
               "id": "CVE-2025-6141",
               "shortDescription": {
-                "text": "A vulnerability has been found in GNU ncurses up to 6.5-20250322 and classified as problematic. This vulnerability affec"
+                "text": "A vulnerability has been found in GNU ncurses up to 6.5-20250322 and classified as problematic. This"
               },
               "fullDescription": {
                 "text": "A vulnerability has been found in GNU ncurses up to 6.5-20250322 and classified as problematic. This vulnerability affects the function postprocess_termcap of the file tinfo/parse_entry.c. The manipulation leads to stack-based buffer overflow. The attack needs to be approached locally. Upgrading to version 6.5-20250329 is able to address this issue. It is recommended to upgrade the affected component."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-6141",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-6141"
+              }
             },
             {
               "id": "CVE-2023-31438",
               "shortDescription": {
-                "text": "An issue was discovered in systemd 253. An attacker can truncate a sealed log file and then resume log sealing such that"
+                "text": "An issue was discovered in systemd 253. An attacker can truncate a sealed log file and then resume l"
               },
               "fullDescription": {
                 "text": "An issue was discovered in systemd 253. An attacker can truncate a sealed log file and then resume log sealing such that checking the integrity shows no error, despite modifications. NOTE: the vendor reportedly sent \"a reply denying that any of the finding was a security vulnerability.\""
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-31438",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-31438"
+              }
             },
             {
               "id": "CVE-2025-30258",
               "shortDescription": {
-                "text": "In GnuPG before 2.5.5, if a user chooses to import a certificate with certain crafted subkey data that lacks a valid bac"
+                "text": "In GnuPG before 2.5.5, if a user chooses to import a certificate with certain crafted subkey data th"
               },
               "fullDescription": {
                 "text": "In GnuPG before 2.5.5, if a user chooses to import a certificate with certain crafted subkey data that lacks a valid backsig or that has incorrect usage flags, the user loses the ability to verify signatures made from certain other signing keys, aka a \"verification DoS.\""
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-30258",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-30258"
+              }
             },
             {
               "id": "CVE-2023-31439",
               "shortDescription": {
-                "text": "An issue was discovered in systemd 253. An attacker can modify the contents of past events in a sealed log file and then"
+                "text": "An issue was discovered in systemd 253. An attacker can modify the contents of past events in a seal"
               },
               "fullDescription": {
                 "text": "An issue was discovered in systemd 253. An attacker can modify the contents of past events in a sealed log file and then adjust the file such that checking the integrity shows no error, despite modifications. NOTE: the vendor reportedly sent \"a reply denying that any of the finding was a security vulnerability.\""
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-31439",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-31439"
+              }
             },
             {
               "id": "CVE-2024-26461",
               "shortDescription": {
-                "text": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/lib/gssapi/krb5/k5sealv3.c."
+                "text": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/lib/gssapi/krb5/k5sea"
               },
               "fullDescription": {
                 "text": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/lib/gssapi/krb5/k5sealv3.c."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-26461",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2024-26461"
+              }
             },
             {
               "id": "CVE-2013-4392",
               "shortDescription": {
-                "text": "systemd, when updating file permissions, allows local users to change the permissions and SELinux security contexts for "
+                "text": "systemd, when updating file permissions, allows local users to change the permissions and SELinux se"
               },
               "fullDescription": {
                 "text": "systemd, when updating file permissions, allows local users to change the permissions and SELinux security contexts for arbitrary files via a symlink attack on unspecified files."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2013-4392",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2013-4392"
+              }
             },
             {
               "id": "CVE-2025-27587",
               "shortDescription": {
-                "text": "OpenSSL 3.0.0 through 3.3.2 on the PowerPC architecture is vulnerable to a Minerva attack, exploitable by measuring the "
+                "text": "OpenSSL 3.0.0 through 3.3.2 on the PowerPC architecture is vulnerable to a Minerva attack, exploitab"
               },
               "fullDescription": {
                 "text": "OpenSSL 3.0.0 through 3.3.2 on the PowerPC architecture is vulnerable to a Minerva attack, exploitable by measuring the time of signing of random messages using the EVP_DigestSign API, and then using the private key to extract the K value (nonce) from the signatures. Next, based on the bit size of the extracted nonce, one can compare the signing time of full-sized nonces to signatures that used smaller nonces, via statistical tests. There is a side-channel in the P-364 curve that allows private key extraction (also, there is a dependency between the bit size of K and the size of the side channel). NOTE: This CVE is disputed because the OpenSSL security policy explicitly notes that any side channels which require same physical system to be detected are outside of the threat model for the software. The timing signal is so small that it is infeasible to be detected without having the attacking process running on the same physical system."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-27587",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-27587"
+              }
             },
             {
               "id": "CVE-2017-18018",
               "shortDescription": {
-                "text": "In GNU Coreutils through 8.29, chown-core.c in chown and chgrp does not prevent replacement of a plain file with a symli"
+                "text": "In GNU Coreutils through 8.29, chown-core.c in chown and chgrp does not prevent replacement of a pla"
               },
               "fullDescription": {
                 "text": "In GNU Coreutils through 8.29, chown-core.c in chown and chgrp does not prevent replacement of a plain file with a symlink during use of the POSIX \"-R -L\" options, which allows local users to modify the ownership of arbitrary files by leveraging a race condition."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2017-18018",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2017-18018"
+              }
             },
             {
               "id": "CVE-2022-27943",
               "shortDescription": {
-                "text": "libiberty/rust-demangle.c in GNU GCC 11.2 allows stack consumption in demangle_const, as demonstrated by nm-new."
+                "text": "libiberty/rust-demangle.c in GNU GCC 11.2 allows stack consumption in demangle_const, as demonstrate"
               },
               "fullDescription": {
                 "text": "libiberty/rust-demangle.c in GNU GCC 11.2 allows stack consumption in demangle_const, as demonstrated by nm-new."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2022-27943",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2022-27943"
+              }
             },
             {
               "id": "CVE-2022-0563",
               "shortDescription": {
-                "text": "A flaw was found in the util-linux chfn and chsh utilities when compiled with Readline support. The Readline library use"
+                "text": "A flaw was found in the util-linux chfn and chsh utilities when compiled with Readline support. The "
               },
               "fullDescription": {
                 "text": "A flaw was found in the util-linux chfn and chsh utilities when compiled with Readline support. The Readline library uses an \"INPUTRC\" environment variable to get a path to the library config file. When the library cannot parse the specified file, it prints an error message containing data from the file. This flaw allows an unprivileged user to read root-owned files, potentially leading to privilege escalation. This flaw affects util-linux versions prior to 2.37.4."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2022-0563",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2022-0563"
+              }
             },
             {
               "id": "CVE-2023-52426",
               "shortDescription": {
-                "text": "libexpat through 2.5.0 allows recursive XML Entity Expansion if XML_DTD is undefined at compile time."
+                "text": "libexpat through 2.5.0 allows recursive XML Entity Expansion if XML_DTD is undefined at compile time"
               },
               "fullDescription": {
                 "text": "libexpat through 2.5.0 allows recursive XML Entity Expansion if XML_DTD is undefined at compile time."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-52426",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2023-52426"
+              }
             },
             {
               "id": "CVE-2025-5278",
               "shortDescription": {
-                "text": "A flaw was found in GNU Coreutils. The sort utility's begfield() function is vulnerable to a heap buffer under-read. The"
+                "text": "A flaw was found in GNU Coreutils. The sort utility's begfield() function is vulnerable to a heap bu"
               },
               "fullDescription": {
                 "text": "A flaw was found in GNU Coreutils. The sort utility's begfield() function is vulnerable to a heap buffer under-read. The program may access memory outside the allocated buffer if a user runs a crafted command using the traditional key format. A malicious input could lead to a crash or leak sensitive data."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-5278",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2025-5278"
+              }
             },
             {
               "id": "CVE-2022-3219",
               "shortDescription": {
-                "text": "GnuPG can be made to spin on a relatively small input by (for example) crafting a public key with thousands of signature"
+                "text": "GnuPG can be made to spin on a relatively small input by (for example) crafting a public key with th"
               },
               "fullDescription": {
                 "text": "GnuPG can be made to spin on a relatively small input by (for example) crafting a public key with thousands of signatures attached, compressed down to just a few KB."
               },
+              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2022-3219",
               "properties": {
-                "security-severity": "LOW",
+                "security-severity": "3.0",
                 "scanner": "grype"
-              },
-              "helpUri": "https://nvd.nist.gov/vuln/detail/CVE-2022-3219"
+              }
             }
           ]
         }
       },
       "automationDetails": {
         "id": "multi-scanner-analysis",
-        "guid": "27c03b9a-51c9-449e-ae37-134161cb5366"
+        "guid": "482690bc-c007-452e-b4ab-ceb9305bbb05"
       },
       "columnKind": "utf16CodeUnits",
       "results": [
@@ -1370,7 +1375,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1395,7 +1402,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1420,7 +1429,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1445,7 +1456,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1470,7 +1483,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1495,7 +1510,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1520,7 +1537,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1545,7 +1564,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1570,7 +1591,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1595,7 +1618,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1620,7 +1645,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1645,7 +1672,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1670,7 +1699,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1695,7 +1726,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1720,7 +1753,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1745,7 +1780,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1770,7 +1807,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1795,7 +1834,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1820,7 +1861,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1845,7 +1888,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1870,7 +1915,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1895,7 +1942,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1920,7 +1969,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1945,7 +1996,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1970,7 +2023,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -1995,7 +2050,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2020,7 +2077,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2045,7 +2104,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2070,7 +2131,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2095,7 +2158,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2120,7 +2185,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2145,7 +2212,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2170,7 +2239,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2195,7 +2266,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2220,7 +2293,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2245,7 +2320,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2270,7 +2347,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2295,7 +2374,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2320,7 +2401,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2345,7 +2428,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2370,7 +2455,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2395,7 +2482,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2420,7 +2509,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2445,7 +2536,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2470,7 +2563,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2495,7 +2590,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2520,7 +2617,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2545,7 +2644,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2570,7 +2671,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2595,7 +2698,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2620,7 +2725,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2645,7 +2752,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2670,7 +2779,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2695,7 +2806,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2720,7 +2833,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2745,7 +2860,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2770,7 +2887,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2795,7 +2914,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2820,7 +2941,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2845,7 +2968,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2870,7 +2995,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2895,7 +3022,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2920,7 +3049,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2945,7 +3076,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2970,7 +3103,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -2995,7 +3130,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3020,7 +3157,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3045,7 +3184,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3070,7 +3211,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3095,7 +3238,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3120,7 +3265,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3145,7 +3292,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3170,7 +3319,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3195,7 +3346,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3220,7 +3373,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3245,7 +3400,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3270,7 +3427,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3295,7 +3454,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3320,7 +3481,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3345,7 +3508,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3370,7 +3535,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3395,7 +3562,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3420,7 +3589,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3445,7 +3616,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3470,7 +3643,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3495,7 +3670,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3520,7 +3697,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3545,7 +3724,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3570,7 +3751,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3595,7 +3778,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3620,7 +3805,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3645,7 +3832,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3670,7 +3859,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3695,7 +3886,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3720,7 +3913,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3745,7 +3940,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3770,7 +3967,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3795,7 +3994,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3820,7 +4021,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3845,7 +4048,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3870,7 +4075,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3895,7 +4102,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3920,7 +4129,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3945,7 +4156,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3970,7 +4183,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -3995,7 +4210,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4020,7 +4237,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4045,7 +4264,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4070,7 +4291,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4095,7 +4318,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4120,7 +4345,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4145,7 +4372,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4170,7 +4399,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4195,7 +4426,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4220,7 +4453,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4245,7 +4480,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4270,7 +4507,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4295,7 +4534,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4320,7 +4561,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4345,7 +4588,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4370,7 +4615,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4395,7 +4642,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4420,7 +4669,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4445,7 +4696,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4470,7 +4723,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4495,7 +4750,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4520,7 +4777,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4545,7 +4804,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4570,7 +4831,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4595,7 +4858,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4620,7 +4885,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4645,7 +4912,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4670,7 +4939,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4695,7 +4966,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4720,7 +4993,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4745,7 +5020,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4770,7 +5047,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4795,7 +5074,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4820,7 +5101,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4845,7 +5128,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4870,7 +5155,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4895,7 +5182,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4920,7 +5209,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4945,7 +5236,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4970,7 +5263,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -4995,7 +5290,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5020,7 +5317,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5045,7 +5344,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5070,7 +5371,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5095,7 +5398,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5120,7 +5425,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5145,7 +5452,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5170,7 +5479,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5195,7 +5506,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5220,7 +5533,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5245,7 +5560,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5270,7 +5587,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5295,7 +5614,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5320,7 +5641,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5345,7 +5668,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5370,7 +5695,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5395,7 +5722,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5420,7 +5749,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5445,7 +5776,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }
@@ -5470,7 +5803,9 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "startColumn": 1
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
                 }
               }
             }

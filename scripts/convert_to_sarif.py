@@ -2,9 +2,9 @@
 """
 convert_to_sarif.py — Converts normalized JSON findings to GitHub SARIF format.
 Fixes:
-- Ensures numeric security-severity values (required by GitHub Code Scanning)
+- Ensures "security-severity" is a stringified numeric value (GitHub-specific)
 - Avoids duplicate rule IDs
-- Ensures valid helpUri types
+- Ensures helpUri is always a valid string
 """
 
 import json
@@ -14,30 +14,37 @@ import uuid
 from datetime import datetime
 from pathlib import Path
 
-# Severity → Numeric CVSS mapping
+# Severity → Numeric CVSS mapping (stringified)
 SEVERITY_SCORES = {
-    "CRITICAL": 9.0,
-    "HIGH": 7.0,
-    "MEDIUM": 5.0,
-    "LOW": 3.0,
-    "UNKNOWN": 1.0
+    "CRITICAL": "9.0",
+    "HIGH": "7.0",
+    "MEDIUM": "5.0",
+    "LOW": "3.0",
+    "UNKNOWN": "1.0"
 }
 
-def normalize_severity(sev: str) -> float:
-    return SEVERITY_SCORES.get(sev.upper(), 1.0)
+def normalize_severity(sev: str) -> str:
+    """Return GitHub-compatible numeric string for severity."""
+    return SEVERITY_SCORES.get(sev.upper(), "1.0")
 
 def make_rule(find):
-    """Create SARIF rule entry."""
+    """Create a SARIF rule entry."""
     rule_id = find.get("id") or hashlib.sha1(
         f"{find.get('package','')}{find.get('description','')}".encode("utf-8")
     ).hexdigest()
 
     description = find.get("description") or "No description available."
+    help_uri = (
+        f"https://nvd.nist.gov/vuln/detail/{rule_id}"
+        if rule_id.startswith("CVE")
+        else "https://nvd.nist.gov/"
+    )
+
     return {
         "id": rule_id,
         "shortDescription": {"text": description[:100]},
         "fullDescription": {"text": description},
-        "helpUri": f"https://nvd.nist.gov/vuln/detail/{rule_id}" if rule_id.startswith("CVE") else "https://nvd.nist.gov/",
+        "helpUri": str(help_uri),
         "properties": {
             "security-severity": normalize_severity(find.get("severity", "UNKNOWN")),
             "scanner": find.get("scanner", "unknown")
