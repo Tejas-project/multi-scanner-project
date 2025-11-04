@@ -3,10 +3,11 @@
 convert_to_sarif.py — Converts normalized JSON findings to GitHub SARIF format.
 
 Fixes:
-- Ensures security-severity is a stringified number
-- Ensures helpUri is always a string
-- Removes duplicate rules
-- Sanitizes invalid or container-based URIs for GitHub Code Scanning
+✅ Removes invalid percent-encoded sequences in URIs
+✅ Sanitizes all location URIs to 'file:///' form
+✅ Converts security-severity to numeric strings
+✅ Deduplicates rules
+✅ Ensures helpUri is string
 """
 
 import json
@@ -15,9 +16,9 @@ import hashlib
 import uuid
 from datetime import datetime
 from pathlib import Path
-from urllib.parse import quote
+import re
 
-# ---- Severity Mappings ----
+# ---- Severity Mapping (numeric as strings for GitHub) ----
 SEVERITY_SCORES = {
     "CRITICAL": "9.0",
     "HIGH": "7.0",
@@ -26,37 +27,34 @@ SEVERITY_SCORES = {
     "UNKNOWN": "1.0"
 }
 
-
 def normalize_severity(sev: str) -> str:
-    """Return GitHub-compatible numeric string for severity."""
     return SEVERITY_SCORES.get(str(sev).upper(), "1.0")
-
 
 def sanitize_uri(uri):
     """
-    Ensure URI is SARIF-compliant (file:// scheme or simple path).
-    - If it's a dict/list, flatten and escape it.
-    - If it has colon (like 'my-app:latest'), quote it.
+    Convert any scanner 'location' into a valid SARIF file URI.
+    Removes colons, brackets, and encodes nothing (GitHub rejects percent escapes).
     """
     if not uri:
-        return "file://unknown"
+        return "file:///unknown"
 
-    # Flatten dicts or lists from scanners
+    # Flatten dict/list locations (from Grype/Trivy)
     if isinstance(uri, (dict, list)):
         try:
-            uri = json.dumps(uri, ensure_ascii=False)[:200]
+            uri = json.dumps(uri, ensure_ascii=False)[:120]
         except Exception:
             uri = str(uri)
 
     uri = str(uri)
 
-    # Replace "my-app:" or image tags with file-safe name
-    if ":" in uri and not uri.startswith("file://"):
-        uri = uri.replace(":", "_")
+    # Remove invalid characters for GitHub’s SARIF schema
+    uri = re.sub(r"[^A-Za-z0-9._/-]", "_", uri)
 
-    # Quote invalid URL characters
-    return f"file://{quote(uri)}"
+    # Ensure consistent prefix
+    if not uri.startswith("/"):
+        uri = "/" + uri
 
+    return f"file://{uri}"
 
 def make_rule(find):
     rule_id = find.get("id") or hashlib.sha1(
@@ -81,7 +79,6 @@ def make_rule(find):
         }
     }
 
-
 def make_result(find):
     severity = find.get("severity", "LOW").upper()
     level = (
@@ -99,10 +96,7 @@ def make_result(find):
                 "artifactLocation": {
                     "uri": sanitize_uri(find.get("location"))
                 },
-                "region": {
-                    "startLine": 1,
-                    "startColumn": 1
-                }
+                "region": {"startLine": 1, "startColumn": 1}
             }
         }],
         "properties": {
@@ -111,7 +105,6 @@ def make_result(find):
             "scanner": find.get("scanner")
         }
     }
-
 
 def main():
     parser = argparse.ArgumentParser(description="Convert normalized results to SARIF format.")
@@ -154,7 +147,6 @@ def main():
 
     Path(args.output).write_text(json.dumps(sarif, indent=2), encoding="utf-8")
     print(f"[+] Valid SARIF file written to {args.output} at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-
 
 if __name__ == "__main__":
     main()
