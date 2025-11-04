@@ -5,12 +5,13 @@ from pathlib import Path
 import uuid
 from datetime import datetime
 
+
 def convert_to_sarif(input_path, output_path):
     data = json.loads(Path(input_path).read_text(encoding="utf-8"))
 
     rules_seen = set()
-    results = []
     rules = []
+    results = []
 
     severity_map = {
         "CRITICAL": "error",
@@ -22,23 +23,35 @@ def convert_to_sarif(input_path, output_path):
 
     for finding in data:
         rule_id = str(finding.get("id") or f"NOID-{uuid.uuid4()}")
+        desc = finding.get("description", "")
+        sev = str(finding.get("severity", "UNKNOWN")).upper()
+        scanner = finding.get("scanner", "unknown")
+
+        # Build rule (deduplicated)
         if rule_id not in rules_seen:
             rules_seen.add(rule_id)
-            rules.append({
+            rule_entry = {
                 "id": rule_id,
-                "shortDescription": {"text": finding.get("description", "")[:120]},
-                "fullDescription": {"text": finding.get("description", "")},
-                "helpUri": "https://nvd.nist.gov/vuln/detail/" + rule_id if rule_id.startswith("CVE-") else None,
+                "shortDescription": {"text": desc[:120]},
+                "fullDescription": {"text": desc},
                 "properties": {
-                    "security-severity": finding.get("severity", "UNKNOWN"),
-                    "scanner": finding.get("scanner", "unknown")
+                    "security-severity": sev,
+                    "scanner": scanner
                 }
-            })
+            }
+            # only include helpUri if it's a valid CVE
+            if rule_id.startswith("CVE-"):
+                rule_entry["helpUri"] = f"https://nvd.nist.gov/vuln/detail/{rule_id}"
+
+            rules.append(rule_entry)
+
+        # Map severity → SARIF level
+        level = severity_map.get(sev, "note")
 
         results.append({
             "ruleId": rule_id,
-            "level": severity_map.get(finding.get("severity", "UNKNOWN").upper(), "note"),
-            "message": {"text": finding.get("description", "")},
+            "level": level,
+            "message": {"text": desc},
             "locations": [{
                 "physicalLocation": {
                     "artifactLocation": {
@@ -53,7 +66,7 @@ def convert_to_sarif(input_path, output_path):
             "properties": {
                 "package": finding.get("package"),
                 "version": finding.get("version"),
-                "scanner": finding.get("scanner")
+                "scanner": scanner
             }
         })
 
@@ -70,7 +83,7 @@ def convert_to_sarif(input_path, output_path):
             },
             "automationDetails": {
                 "id": "multi-scanner-analysis",
-                "guid": str(uuid.uuid4())  # unique valid UUID
+                "guid": str(uuid.uuid4())  # valid UUID
             },
             "columnKind": "utf16CodeUnits",
             "results": results
@@ -79,6 +92,7 @@ def convert_to_sarif(input_path, output_path):
 
     Path(output_path).write_text(json.dumps(sarif, indent=2), encoding="utf-8")
     print(f"[+] Valid SARIF file written to {output_path} at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Convert normalized results to SARIF format.")
