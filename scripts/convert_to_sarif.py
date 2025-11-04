@@ -1,94 +1,110 @@
 #!/usr/bin/env python3
 """
-scripts/convert_to_sarif.py
+convert_to_sarif.py
 
-Converts normalized-results.json into valid SARIF format for GitHub Security tab.
-Handles complex or non-string 'location' fields safely.
+Converts normalized scanner results into a valid SARIF file
+for upload to GitHub Code Scanning.
+Supports Trivy, Grype, Hadolint results merged via normalize.py.
 """
 
 import json
 import argparse
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
-def safe_uri(location):
-    """Ensure artifactLocation.uri is a valid string path"""
-    if isinstance(location, str):
-        return location
-    elif isinstance(location, list) and location:
-        # If it's a list of dicts or strings
-        if isinstance(location[0], dict) and "path" in location[0]:
-            return str(location[0]["path"])
-        else:
-            return str(location[0])
-    elif isinstance(location, dict):
-        return str(location.get("path") or location.get("Target") or location.get("file") or "unknown")
-    elif location is None:
-        return "unknown"
+# -------------------- Severity → SARIF Level Mapping --------------------
+def map_severity_to_level(severity):
+    """Map scanner severities to SARIF-compliant levels."""
+    sev = (severity or "").upper()
+    if sev in ["CRITICAL", "HIGH"]:
+        return "error"
+    elif sev in ["MEDIUM"]:
+        return "warning"
+    elif sev in ["LOW"]:
+        return "note"
     else:
-        return str(location)
+        return "none"
 
-def main():
-    parser = argparse.ArgumentParser(description="Convert normalized-results.json into SARIF format")
-    parser.add_argument("--input", default="normalized-results.json", help="Input JSON file")
-    parser.add_argument("--output", default="results.sarif", help="Output SARIF file")
-    args = parser.parse_args()
+# -------------------- Build SARIF result entries --------------------
+def build_sarif_results(findings):
+    """Convert normalized findings list into SARIF results array."""
+    results = []
+    for f in findings:
+        # Extract a valid URI (must be string for SARIF)
+        location_value = f.get("location") or f.get("package") or "unknown"
+        if not isinstance(location_value, str):
+            location_value = str(location_value)
 
-    data_path = Path(args.input)
-    if not data_path.exists():
-        raise FileNotFoundError(f"{args.input} not found")
+        # Build result entry
+        result = {
+            "ruleId": str(f.get("id", "UNKNOWN")),
+            "level": map_severity_to_level(f.get("severity")),
+            "message": {
+                "text": f.get("description", "No description provided.")
+            },
+            "locations": [{
+                "physicalLocation": {
+                    "artifactLocation": {
+                        "uri": location_value
+                    }
+                }
+            }]
+        }
+        results.append(result)
+    return results
 
-    findings = json.loads(data_path.read_text(encoding="utf-8"))
-
-    # SARIF skeleton
-    sarif = {
+# -------------------- Generate SARIF structure --------------------
+def generate_sarif(findings):
+    """Create a valid SARIF v2.1.0 document."""
+    return {
         "version": "2.1.0",
         "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
         "runs": [{
             "tool": {
                 "driver": {
-                    "name": "Multi-Scanner Security Framework",
-                    "informationUri": "https://github.com/Tejas-project/multi-scanner-project",
+                    "name": "Multi-Scanner Security Analyzer",
+                    "informationUri": "https://github.com/aquasecurity/trivy",
                     "rules": []
                 }
             },
-            "results": []
+            "automationDetails": {
+                "id": "multi-scanner",
+                "guid": "multi-scanner-run"
+            },
+            "results": build_sarif_results(findings),
+            "columnKind": "utf16",
+            "properties": {
+                "timestamp": datetime.utcnow().isoformat() + "Z"
+            }
         }]
     }
 
-    rule_ids = {}
-    for f in findings:
-        rule_id = f.get("id", "UNKNOWN")
-        description = f.get("description", "")
-        severity = f.get("severity", "LOW").upper()
-        scanner = f.get("scanner", "unknown")
-        uri = safe_uri(f.get("location"))
+# -------------------- CLI entrypoint --------------------
+def main():
+    parser = argparse.ArgumentParser(description="Convert normalized results to SARIF format.")
+    parser.add_argument("--input", required=True, help="Path to normalized-results.json")
+    parser.add_argument("--output", default="results.sarif", help="Output SARIF file path")
+    args = parser.parse_args()
 
-        # Add rule metadata (once per unique ID)
-        if rule_id not in rule_ids:
-            sarif["runs"][0]["tool"]["driver"]["rules"].append({
-                "id": rule_id,
-                "shortDescription": {"text": description[:120]},
-                "helpUri": "https://nvd.nist.gov/vuln/detail/" + rule_id if rule_id.startswith("CVE") else None,
-                "properties": {"scanner": scanner, "severity": severity}
-            })
-            rule_ids[rule_id] = True
+    input_path = Path(args.input)
+    output_path = Path(args.output)
 
-        # Add finding result
-        sarif["runs"][0]["results"].append({
-            "ruleId": rule_id,
-            "level": severity.lower(),
-            "message": {"text": description},
-            "locations": [{
-                "physicalLocation": {
-                    "artifactLocation": {"uri": uri},
-                    "region": {"startLine": 1}
-                }
-            }]
-        })
+    if not input_path.exists():
+        print(f"[!] Input file not found: {input_path}")
+        return
 
-    Path(args.output).write_text(json.dumps(sarif, indent=2), encoding="utf-8")
-    print(f"[+] Valid SARIF file written to {args.output} at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    # Load normalized JSON
+    with open(input_path, "r", encoding="utf-8") as f:
+        findings = json.load(f)
+
+    # Generate SARIF data
+    sarif = generate_sarif(findings)
+
+    # Write to file
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(sarif, f, indent=2)
+
+    print(f"[+] Valid SARIF file written to {output_path} at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 if __name__ == "__main__":
     main()
